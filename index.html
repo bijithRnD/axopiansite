@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axopian Consulting | IT Services & Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-900: #0a1628;
+      --blue-800: #0d2147;
+      --blue-700: #0e3175;
+      --blue-600: #1448a8;
+      --blue-500: #1a5fd8;
+      --blue-400: #2d7ae0;
+      --blue-300: #5b9ef5;
+      --blue-200: #93c1fb;
+      --blue-100: #d0e8ff;
+      --blue-50:  #eaf4ff;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-800: #1e293b;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 36px;
+      --shadow-sm: 0 2px 8px rgba(14,49,117,0.08);
+      --shadow-md: 0 8px 32px rgba(14,49,117,0.14);
+      --shadow-lg: 0 20px 60px rgba(14,49,117,0.22);
+      --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-800);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--blue-50); }
+    ::-webkit-scrollbar-thumb { background: var(--blue-400); border-radius: 3px; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 5%;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(10,22,40,0.98);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--blue-500), var(--accent));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 26px; height: 26px; }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-name {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+    .nav-logo-tagline {
+      font-size: 0.62rem; color: var(--blue-300);
+      letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; color: rgba(255,255,255,0.8);
+      font-size: 0.9rem; font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: var(--accent); border-radius: 2px; transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      padding: 9px 22px;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+      color: var(--white) !important; border-radius: 50px;
+      font-weight: 600 !important; font-size: 0.88rem !important;
+      box-shadow: 0 4px 14px rgba(26,95,216,0.4);
+      transition: var(--transition) !important;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,95,216,0.55) !important; }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px; transition: var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: var(--blue-900);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+      padding: 100px 5% 60px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 80% at 70% 40%, rgba(26,95,216,0.25) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,212,255,0.12) 0%, transparent 60%),
+                  linear-gradient(180deg, #0a1628 0%, #0d1f45 100%);
+    }
+    /* Animated grid */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 20%, transparent 80%);
+    }
+    /* Floating orbs */
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(26,95,216,0.2); top: -100px; right: -100px; animation-delay: 0s; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(0,212,255,0.12); bottom: 0; left: 5%; animation-delay: -3s; }
+    .orb-3 { width: 200px; height: 200px; background: rgba(124,58,237,0.1); top: 40%; right: 30%; animation-delay: -5s; }
+    @keyframes orbFloat {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      width: 100%; max-width: 1300px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 50px;
+      background: rgba(26,95,216,0.2); border: 1px solid rgba(93,158,245,0.3);
+      color: var(--blue-300); font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.5px; margin-bottom: 24px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+    .hero h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+      font-weight: 800; line-height: 1.1;
+      color: var(--white);
+      letter-spacing: -1px; margin-bottom: 24px;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--blue-300), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      color: rgba(255,255,255,0.65); font-size: 1.1rem; line-height: 1.75;
+      max-width: 520px; margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+      color: var(--white); font-weight: 700; font-size: 1rem;
+      text-decoration: none; transition: var(--transition);
+      box-shadow: 0 8px 24px rgba(26,95,216,0.45);
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,95,216,0.6); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white); font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 52px; flex-wrap: wrap;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-number {
+      font-family: 'Manrope', sans-serif;
+      font-size: 2rem; font-weight: 800; color: var(--white);
+    }
+    .stat-number span { color: var(--accent); }
+    .stat-label { color: rgba(255,255,255,0.5); font-size: 0.82rem; font-weight: 500; }
+
+    /* Hero Right - 3D Dashboard Illustration */
+    .hero-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .hero-visual-card {
+      width: 100%; max-width: 520px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      animation: cardFloat 6s ease-in-out infinite;
+    }
+    @keyframes cardFloat {
+      0%,100% { transform: translateY(0) rotateY(-3deg); }
+      50% { transform: translateY(-16px) rotateY(3deg); }
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+    }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue-500), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-title { color: var(--white); font-weight: 700; font-size: 1rem; }
+    .card-sub { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+    .chart-bars {
+      display: flex; align-items: flex-end; gap: 8px; height: 100px; margin-bottom: 24px;
+    }
+    .bar {
+      flex: 1; border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, var(--blue-400), var(--blue-600));
+      opacity: 0.7; position: relative; overflow: hidden;
+      animation: barGrow 1.5s ease both;
+    }
+    .bar::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 2.5s infinite;
+    }
+    @keyframes shimmer { 0% { left:-100%; } 100% { left:200%; } }
+    @keyframes barGrow { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); } }
+    .b1{height:45px; animation-delay:0.1s;}
+    .b2{height:70px; animation-delay:0.2s;}
+    .b3{height:55px; animation-delay:0.3s;}
+    .b4{height:90px; background:linear-gradient(180deg,var(--accent),var(--blue-500)); opacity:1; animation-delay:0.4s;}
+    .b5{height:65px; animation-delay:0.5s;}
+    .b6{height:80px; animation-delay:0.6s;}
+    .b7{height:50px; animation-delay:0.7s;}
+    .metric-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric {
+      background: rgba(255,255,255,0.06); border-radius: 12px;
+      padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08);
+    }
+    .metric-val {
+      font-family: 'Manrope', sans-serif; color: var(--white);
+      font-size: 1.4rem; font-weight: 800;
+    }
+    .metric-val.up { color: #4ade80; }
+    .metric-label { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 2px; }
+    .floating-badge {
+      position: absolute;
+      padding: 10px 16px; border-radius: 50px;
+      background: rgba(10,22,40,0.9); border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px); color: var(--white);
+      font-size: 0.8rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      white-space: nowrap;
+    }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .badge-1 { top: -20px; right: -30px; animation: badgeFloat1 5s ease-in-out infinite; }
+    .badge-2 { bottom: 20px; left: -40px; animation: badgeFloat2 6s ease-in-out infinite; }
+    @keyframes badgeFloat1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(6px,-10px); } }
+    @keyframes badgeFloat2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-6px,10px); } }
+
+    /* ===== SECTION COMMONS ===== */
+    section { padding: 100px 5%; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--blue-500); margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: ''; width: 28px; height: 2px;
+      background: linear-gradient(90deg, var(--blue-500), var(--accent));
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800;
+      color: var(--blue-900); line-height: 1.2; letter-spacing: -0.5px;
+    }
+    .section-title .hl { color: var(--blue-500); }
+    .section-desc {
+      color: var(--gray-600); font-size: 1.05rem; line-height: 1.75;
+      max-width: 600px; margin-top: 16px;
+    }
+    .section-head { margin-bottom: 64px; }
+
+    /* ===== TRUSTED BY ===== */
+    .trusted {
+      padding: 48px 5%;
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .trusted-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 32px;
+    }
+    .trusted-label {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gray-400);
+    }
+    .trusted-logos {
+      display: flex; align-items: center; justify-content: center;
+      gap: 52px; flex-wrap: wrap;
+    }
+    .logo-item {
+      display: flex; align-items: center; gap: 10px;
+      opacity: 0.35; transition: var(--transition); cursor: default;
+    }
+    .logo-item:hover { opacity: 0.65; }
+    .logo-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-name {
+      font-family: 'Manrope', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--gray-800); letter-spacing: -0.2px;
+    }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--white); }
+    .services-inner { max-width: 1300px; margin: 0 auto; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+      cursor: default;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-500), var(--accent));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--blue-100);
+    }
+    .service-card-glow {
+      position: absolute; width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,95,216,0.08) 0%, transparent 70%);
+      top: -60px; right: -60px; pointer-events: none;
+      transition: var(--transition);
+    }
+    .service-card:hover .service-card-glow { transform: scale(1.5); }
+    .service-icon-wrap {
+      width: 64px; height: 64px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .service-icon-wrap svg { width: 32px; height: 32px; }
+    .icon-sw { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+    .icon-data { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
+    .icon-cloud { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+    .icon-ai { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); }
+    .service-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.35rem; font-weight: 800; color: var(--blue-900);
+      margin-bottom: 12px;
+    }
+    .service-desc {
+      color: var(--gray-600); font-size: 0.95rem; line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .tag {
+      padding: 5px 14px; border-radius: 50px;
+      background: var(--blue-50); color: var(--blue-600);
+      font-size: 0.78rem; font-weight: 600; border: 1px solid var(--blue-100);
+    }
+    .service-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--blue-500); font-weight: 700; font-size: 0.9rem;
+      text-decoration: none; transition: var(--transition);
+    }
+    .service-link:hover { gap: 10px; color: var(--blue-400); }
+    .service-link svg { transition: transform 0.3s; }
+    .service-link:hover svg { transform: translateX(4px); }
+
+    /* ===== ABOUT ===== */
+    .about {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-800) 100%);
+      position: relative; overflow: hidden;
+    }
+    .about::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(26,95,216,0.3), transparent);
+    }
+    .about-inner {
+      max-width: 1300px; margin: 0 auto; position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about .section-label { color: var(--blue-300); }
+    .about .section-title { color: var(--white); }
+    .about .section-desc { color: rgba(255,255,255,0.65); }
+    .about-features { display: flex; flex-direction: column; gap: 20px; margin-top: 36px; }
+    .about-feature {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md); padding: 20px 24px;
+      transition: var(--transition);
+    }
+    .about-feature:hover { background: rgba(255,255,255,0.09); transform: translateX(6px); }
+    .feat-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .feat-icon svg { width: 22px; height: 22px; }
+    .feat-text h4 { color: var(--white); font-weight: 700; margin-bottom: 4px; }
+    .feat-text p { color: rgba(255,255,255,0.5); font-size: 0.88rem; }
+    .about-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .about-image-wrap {
+      width: 100%; max-width: 460px;
+      border-radius: var(--radius-xl);
+      overflow: hidden; position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    }
+    /* SVG Illustration replacing image */
+    .about-svg-illustration {
+      width: 100%; border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #0d2147, #0e3175);
+      padding: 40px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .ill-row { display: flex; gap: 12px; }
+    .ill-block {
+      border-radius: 12px; padding: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      flex: 1;
+    }
+    .ill-block h5 { color: rgba(255,255,255,0.5); font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .ill-block .big { color: var(--white); font-family: 'Manrope',sans-serif; font-size: 1.6rem; font-weight: 800; }
+    .ill-block .up { color: #4ade80; font-size: 0.78rem; font-weight: 600; }
+    .ill-progress { margin-top: 8px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .ill-progress-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--blue-400), var(--accent)); }
+    .about-cert {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 16px 20px; box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .cert-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cert-text { font-size: 0.8rem; }
+    .cert-text strong { display: block; color: var(--blue-900); font-weight: 800; }
+    .cert-text span { color: var(--gray-400); }
+
+    /* ===== PROCESS ===== */
+    .process { background: var(--gray-50); }
+    .process-inner { max-width: 1100px; margin: 0 auto; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute; top: 36px; left: calc(12.5% + 18px);
+      right: calc(12.5% + 18px); height: 2px;
+      background: linear-gradient(90deg, var(--blue-500), var(--accent));
+      z-index: 0;
+    }
+    .process-step {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 16px; position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--blue-500);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Manrope', sans-serif; font-size: 1.3rem; font-weight: 800;
+      color: var(--blue-500); margin-bottom: 24px; position: relative;
+      box-shadow: 0 0 0 8px var(--gray-50), var(--shadow-md);
+      transition: var(--transition);
+    }
+    .process-step:hover .step-num {
+      background: var(--blue-500); color: var(--white);
+      transform: scale(1.1); box-shadow: 0 0 0 8px var(--gray-50), 0 8px 24px rgba(26,95,216,0.4);
+    }
+    .step-title { font-weight: 700; color: var(--blue-900); margin-bottom: 8px; font-size: 1rem; }
+    .step-desc { color: var(--gray-600); font-size: 0.85rem; line-height: 1.6; }
+
+    /* ===== TECH STACK ===== */
+    .tech { background: var(--white); }
+    .tech-inner { max-width: 1100px; margin: 0 auto; }
+    .tech-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px;
+    }
+    .tech-item {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      padding: 24px 12px; border-radius: var(--radius-md);
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      transition: var(--transition); cursor: default;
+    }
+    .tech-item:hover {
+      border-color: var(--blue-300); background: var(--blue-50);
+      transform: translateY(-4px); box-shadow: var(--shadow-sm);
+    }
+    .tech-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tech-name { font-size: 0.78rem; font-weight: 600; color: var(--gray-600); text-align: center; }
+
+    /* ===== CTA ===== */
+    .cta {
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-500) 50%, var(--blue-400));
+      padding: 100px 5%; position: relative; overflow: hidden;
+    }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .cta-inner {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; position: relative; z-index: 1;
+    }
+    .cta h2 {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800;
+      color: var(--white); line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.5px;
+    }
+    .cta p { color: rgba(255,255,255,0.75); font-size: 1.1rem; margin-bottom: 40px; max-width: 560px; }
+    .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-white {
+      padding: 14px 36px; border-radius: 50px;
+      background: var(--white); color: var(--blue-600);
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15); transition: var(--transition);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+    .btn-outline-white {
+      padding: 14px 36px; border-radius: 50px;
+      background: transparent; border: 2px solid rgba(255,255,255,0.7);
+      color: var(--white); font-weight: 700; font-size: 1rem;
+      text-decoration: none; transition: var(--transition);
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+    /* ===== CONTACT ===== */
+    .contact { background: var(--gray-50); }
+    .contact-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 32px; }
+    .contact-info .section-desc { margin-top: 0; }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-detail {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .detail-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: var(--blue-50); border: 1px solid var(--blue-100);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .detail-icon svg { width: 20px; height: 20px; }
+    .detail-text strong { display: block; color: var(--blue-900); font-weight: 700; margin-bottom: 2px; }
+    .detail-text span { color: var(--gray-600); font-size: 0.9rem; }
+    .contact-form-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 48px; box-shadow: var(--shadow-md);
+      border: 1px solid var(--gray-200);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .form-group label { font-size: 0.88rem; font-weight: 600; color: var(--blue-900); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px 16px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--gray-200); background: var(--gray-50);
+      color: var(--gray-800); font-size: 0.95rem; font-family: inherit;
+      transition: var(--transition); outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--blue-400); background: var(--white);
+      box-shadow: 0 0 0 4px rgba(26,95,216,0.08);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%; padding: 14px; border-radius: 50px;
+      background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+      color: var(--white); font-weight: 700; font-size: 1rem;
+      border: none; cursor: pointer; transition: var(--transition);
+      box-shadow: 0 8px 24px rgba(26,95,216,0.3);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(26,95,216,0.45); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--blue-900);
+      padding: 80px 5% 40px;
+      position: relative; overflow: hidden;
+    }
+    footer::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(26,95,216,0.08));
+    }
+    .footer-inner {
+      max-width: 1300px; margin: 0 auto; position: relative; z-index: 1;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;
+      margin-bottom: 64px;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+    .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.75; max-width: 280px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 4px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); text-decoration: none;
+    }
+    .social-btn:hover { background: var(--blue-500); border-color: var(--blue-500); }
+    .social-btn svg { width: 16px; height: 16px; }
+    .footer-col h4 {
+      color: var(--white); font-weight: 700; margin-bottom: 20px; font-size: 0.95rem;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      text-decoration: none; color: rgba(255,255,255,0.5);
+      font-size: 0.88rem; transition: var(--transition);
+    }
+    .footer-links a:hover { color: var(--white); padding-left: 4px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom-links a { color: rgba(255,255,255,0.4); font-size: 0.85rem; text-decoration: none; transition: var(--transition); }
+    .footer-bottom-links a:hover { color: var(--white); }
+
+    /* ===== MOBILE NAV MENU ===== */
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0; z-index: 999;
+      background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+      padding: 24px 5%; flex-direction: column; gap: 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; color: rgba(255,255,255,0.8);
+      font-size: 1rem; font-weight: 500; padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--white); padding-left: 8px; }
+    .mobile-menu .nav-cta { margin-top: 12px; text-align: center; display: block; padding: 14px !important; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .tech-grid { grid-template-columns: repeat(4, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .process-step { padding: 16px; }
+      .step-num { margin-bottom: 16px; }
+    }
+    @media (max-width: 700px) {
+      section { padding: 72px 5%; }
+      .services-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-stats { gap: 24px; }
+      .tech-grid { grid-template-columns: repeat(3, 1fr); }
+      .process-steps { grid-template-columns: 1fr; }
+      .process-steps::before { display: none; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-card { padding: 28px 20px; }
+    }
+    @media (max-width: 480px) {
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { justify-content: center; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .slide-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .slide-left.visible { opacity: 1; transform: translateX(0); }
+    .slide-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .slide-right.visible { opacity: 1; transform: translateX(0); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L23 8V18L13 24L3 18V8L13 2Z" stroke="white" stroke-width="2" fill="none"/>
+        <circle cx="13" cy="13" r="4" fill="white"/>
+        <line x1="13" y1="2" x2="13" y2="9" stroke="white" stroke-width="1.5"/>
+        <line x1="13" y1="17" x2="13" y2="24" stroke="white" stroke-width="1.5"/>
+        <line x1="23" y1="8" x2="17" y2="11.5" stroke="white" stroke-width="1.5"/>
+        <line x1="9" y1="14.5" x2="3" y2="18" stroke="white" stroke-width="1.5"/>
+        <line x1="3" y1="8" x2="9" y2="11.5" stroke="white" stroke-width="1.5"/>
+        <line x1="17" y1="14.5" x2="23" y2="18" stroke="white" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Axopian</span>
+      <span class="nav-logo-tagline">Consulting</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#process" onclick="closeMenu()">Process</a>
+  <a href="#tech" onclick="closeMenu()">Technology</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="#contact" class="nav-cta" onclick="closeMenu()">Get Started →</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Transforming Business Through Technology
+      </div>
+      <h1>Powering the Future with <span class="highlight">Intelligent IT Solutions</span></h1>
+      <p class="hero-desc">
+        Axopian Consulting delivers cutting-edge Software, Data, Cloud & AI services to accelerate your digital transformation and drive measurable business outcomes.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">
+          Explore Services
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#contact" class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Talk to an Expert
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">200<span>+</span></span>
+          <span class="stat-label">Projects Delivered</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">50<span>+</span></span>
+          <span class="stat-label">Enterprise Clients</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">98<span>%</span></span>
+          <span class="stat-label">Client Satisfaction</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">10<span>+</span></span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="card-title">Analytics Dashboard</div>
+            <div class="card-sub">Real-time Performance</div>
+          </div>
+        </div>
+        <div class="chart-bars">
+          <div class="bar b1"></div>
+          <div class="bar b2"></div>
+          <div class="bar b3"></div>
+          <div class="bar b4"></div>
+          <div class="bar b5"></div>
+          <div class="bar b6"></div>
+          <div class="bar b7"></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-val up">↑ 34.6%</div>
+            <div class="metric-label">Revenue Growth</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">99.98%</div>
+            <div class="metric-label">System Uptime</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">12ms</div>
+            <div class="metric-label">Avg. Latency</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val up">↑ 21%</div>
+            <div class="metric-label">Efficiency Gain</div>
+          </div>
+        </div>
+      </div>
+      <div class="floating-badge badge-1">
+        <span class="badge-dot" style="background:#4ade80; box-shadow:0 0 8px #4ade80;"></span>
+        AI Model Deployed
+      </div>
+      <div class="floating-badge badge-2">
+        <span class="badge-dot" style="background:var(--accent); box-shadow:0 0 8px var(--accent);"></span>
+        Cloud Migrated: 3 Services
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUSTED BY ===== -->
+<div class="trusted">
+  <div class="trusted-inner">
+    <p class="trusted-label">Trusted by leading organizations</p>
+    <div class="trusted-logos">
+      <div class="logo-item">
+        <div class="logo-icon" style="background:#e3f2fd;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1565c0"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+        </div>
+        <span class="logo-name">TechNova</span>
+      </div>
+      <div class="logo-item">
+        <div class="logo-icon" style="background:#e8f5e9;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#2e7d32"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <span class="logo-name">DataForge</span>
+      </div>
+      <div class="logo-item">
+        <div class="logo-icon" style="background:#fce4ec;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#c62828"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke="white" stroke-width="2" fill="none"/></svg>
+        </div>
+        <span class="logo-name">CloudSphere</span>
+      </div>
+      <div class="logo-item">
+        <div class="logo-icon" style="background:#ede7f6;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#512da8"><polygon points="12,2 22,20 2,20"/></svg>
+        </div>
+        <span class="logo-name">NexGenAI</span>
+      </div>
+      <div class="logo-item">
+        <div class="logo-icon" style="background:#fff8e1;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#f57f17"><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke="#f57f17" stroke-width="2" fill="none"/></svg>
+        </div>
+        <span class="logo-name">BrightEdge</span>
+      </div>
+      <div class="logo-item">
+        <div class="logo-icon" style="background:#e0f7fa;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#00695c"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <span class="logo-name">HealthSync</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="section-head fade-in" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Comprehensive IT Services for <span class="hl">Modern Enterprises</span></h2>
+      <p class="section-desc" style="text-align:center;">From bespoke software development to AI-powered analytics, we deliver end-to-end technology solutions that solve real business challenges.</p>
+    </div>
+    <div class="services-grid">
+
+      <!-- Software Services -->
+      <div class="service-card fade-in stagger-1">
+        <div class="service-card-glow"></div>
+        <div class="service-icon-wrap icon-sw">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="6" width="24" height="20" rx="3" stroke="#1448a8" stroke-width="2"/>
+            <path d="M10 16l4 4 8-8" stroke="#1448a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 11h24" stroke="#1448a8" stroke-width="1.5"/>
+            <circle cx="8" cy="8.5" r="1" fill="#1448a8"/>
+            <circle cx="11" cy="8.5" r="1" fill="#1448a8"/>
+            <circle cx="14" cy="8.5" r="1" fill="#1448a8"/>
+          </svg>
+        </div>
+        <h3 class="service-title">Software Services</h3>
+        <p class="service-desc">End-to-end software engineering — from architecture and development to QA and deployment. We build scalable, secure applications tailored to your business needs.</p>
+        <div class="service-tags">
+          <span class="tag">Custom Development</span>
+          <span class="tag">API Integration</span>
+          <span class="tag">DevOps & CI/CD</span>
+          <span class="tag">Mobile Apps</span>
+          <span class="tag">Microservices</span>
+        </div>
+        <a href="#contact" class="service-link">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Data Services -->
+      <div class="service-card fade-in stagger-2">
+        <div class="service-card-glow"></div>
+        <div class="service-icon-wrap icon-data">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="16" cy="10" rx="10" ry="4" stroke="#0369a1" stroke-width="2"/>
+            <path d="M6 10v6c0 2.21 4.48 4 10 4s10-1.79 10-4v-6" stroke="#0369a1" stroke-width="2"/>
+            <path d="M6 16v6c0 2.21 4.48 4 10 4s10-1.79 10-4v-6" stroke="#0369a1" stroke-width="2"/>
+            <circle cx="22" cy="10" r="1.5" fill="#0369a1"/>
+          </svg>
+        </div>
+        <h3 class="service-title">Data Services</h3>
+        <p class="service-desc">Transform raw data into strategic assets. We design robust data pipelines, warehouses, and analytics platforms that deliver actionable insights at enterprise scale.</p>
+        <div class="service-tags">
+          <span class="tag">Data Engineering</span>
+          <span class="tag">BI & Analytics</span>
+          <span class="tag">Data Warehousing</span>
+          <span class="tag">ETL Pipelines</span>
+          <span class="tag">Real-time Streaming</span>
+        </div>
+        <a href="#contact" class="service-link">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Cloud Services -->
+      <div class="service-card fade-in stagger-3">
+        <div class="service-card-glow"></div>
+        <div class="service-icon-wrap icon-cloud">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25.5 20a5.5 5.5 0 0 0-4.9-7.95A8 8 0 1 0 8 21h17.5z" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 21v7M13 25l3 3 3-3" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="service-title">Cloud Services</h3>
+        <p class="service-desc">Accelerate your journey to the cloud with our migration, optimization, and managed cloud services across AWS, Azure, and GCP. Reduce costs while improving resilience.</p>
+        <div class="service-tags">
+          <span class="tag">Cloud Migration</span>
+          <span class="tag">Kubernetes & Containers</span>
+          <span class="tag">Cost Optimization</span>
+          <span class="tag">Multi-Cloud Strategy</span>
+          <span class="tag">IaC & Terraform</span>
+        </div>
+        <a href="#contact" class="service-link">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- AI Services -->
+      <div class="service-card fade-in stagger-4">
+        <div class="service-card-glow"></div>
+        <div class="service-icon-wrap icon-ai">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="5" stroke="#0891b2" stroke-width="2"/>
+            <circle cx="7" cy="8" r="2.5" stroke="#0891b2" stroke-width="2"/>
+            <circle cx="25" cy="8" r="2.5" stroke="#0891b2" stroke-width="2"/>
+            <circle cx="7" cy="24" r="2.5" stroke="#0891b2" stroke-width="2"/>
+            <circle cx="25" cy="24" r="2.5" stroke="#0891b2" stroke-width="2"/>
+            <line x1="11" y1="16" x2="9" y2="10" stroke="#0891b2" stroke-width="1.5"/>
+            <line x1="21" y1="16" x2="23" y2="10" stroke="#0891b2" stroke-width="1.5"/>
+            <line x1="11" y1="18" x2="9" y2="22" stroke="#0891b2" stroke-width="1.5"/>
+            <line x1="21" y1="18" x2="23" y2="22" stroke="#0891b2" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h3 class="service-title">AI & Machine Learning</h3>
+        <p class="service-desc">Unlock the power of artificial intelligence. We build custom ML models, LLM integrations, computer vision systems, and intelligent automation that redefine operational efficiency.</p>
+        <div class="service-tags">
+          <span class="tag">Generative AI</span>
+          <span class="tag">ML Model Development</span>
+          <span class="tag">NLP & LLM Integration</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">AI Strategy</span>
+        </div>
+        <a href="#contact" class="service-link">
+          Learn More
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="slide-left">
+      <span class="section-label">Who We Are</span>
+      <h2 class="section-title">Built by Technologists,<br/>Driven by Results</h2>
+      <p class="section-desc">
+        Axopian Consulting is an elite IT services firm combining deep technical expertise with strategic business acumen. We partner with organizations to architect, build, and operate technology systems that deliver lasting competitive advantage.
+      </p>
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="feat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="feat-text">
+            <h4>Enterprise-Grade Security</h4>
+            <p>ISO 27001 compliant processes with zero-trust architecture principles built into every engagement.</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="feat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="feat-text">
+            <h4>Agile Delivery at Speed</h4>
+            <p>Iterative delivery model ensuring rapid time-to-value with continuous improvement cycles.</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="feat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="feat-text">
+            <h4>Dedicated Expert Teams</h4>
+            <p>Certified engineers and architects with deep domain expertise assigned to every project.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual slide-right">
+      <div class="about-image-wrap">
+        <div class="about-svg-illustration">
+          <div class="ill-row">
+            <div class="ill-block" style="flex:1.2;">
+              <h5>AI Accuracy</h5>
+              <div class="big">96.4%</div>
+              <div class="up">↑ Model v3.1</div>
+              <div class="ill-progress"><div class="ill-progress-bar" style="width:96%"></div></div>
+            </div>
+            <div class="ill-block">
+              <h5>Uptime SLA</h5>
+              <div class="big">99.9%</div>
+              <div class="up">✓ On Track</div>
+              <div class="ill-progress"><div class="ill-progress-bar" style="width:99%"></div></div>
+            </div>
+          </div>
+          <div class="ill-row">
+            <div class="ill-block">
+              <h5>Cloud Savings</h5>
+              <div class="big">$2.4M</div>
+              <div class="up">↑ 38% YoY</div>
+              <div class="ill-progress"><div class="ill-progress-bar" style="width:72%"></div></div>
+            </div>
+            <div class="ill-block" style="flex:1.2;">
+              <h5>Data Processed</h5>
+              <div class="big">18TB</div>
+              <div class="up">Daily average</div>
+              <div class="ill-progress"><div class="ill-progress-bar" style="width:85%"></div></div>
+            </div>
+          </div>
+          <div class="ill-row">
+            <div class="ill-block">
+              <h5>Dev Velocity</h5>
+              <div class="big">+42%</div>
+              <div class="up">Sprint over sprint</div>
+              <div class="ill-progress"><div class="ill-progress-bar" style="width:82%"></div></div>
+            </div>
+            <div class="ill-block">
+              <h5>Deployments</h5>
+              <div class="big">840</div>
+              <div class="up">This quarter</div>
+              <div class="ill-progress"><div class="ill-progress-bar" style="width:68%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-cert">
+        <div class="cert-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="cert-text">
+          <strong>ISO 27001 Certified</strong>
+          <span>Security & Compliance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="section-head fade-in" style="text-align:center; display:flex; flex-direction:column; align-items:center; margin-bottom:72px;">
+      <span class="section-label">How We Work</span>
+      <h2 class="section-title">A Proven Path to <span class="hl">Digital Excellence</span></h2>
+      <p class="section-desc" style="text-align:center;">Our structured engagement model ensures clarity, accountability, and consistent delivery from day one.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step fade-in stagger-1">
+        <div class="step-num">01</div>
+        <h4 class="step-title">Discover & Assess</h4>
+        <p class="step-desc">We deep-dive into your business goals, current systems, and pain points to define the right technology strategy.</p>
+      </div>
+      <div class="process-step fade-in stagger-2">
+        <div class="step-num">02</div>
+        <h4 class="step-title">Design & Architect</h4>
+        <p class="step-desc">Our architects craft scalable, future-proof solution blueprints aligned to your budget and growth trajectory.</p>
+      </div>
+      <div class="process-step fade-in stagger-3">
+        <div class="step-num">03</div>
+        <h4 class="step-title">Build & Iterate</h4>
+        <p class="step-desc">Agile sprints with continuous delivery, testing, and stakeholder feedback loops for rapid and reliable execution.</p>
+      </div>
+      <div class="process-step fade-in stagger-4">
+        <div class="step-num">04</div>
+        <h4 class="step-title">Deploy & Optimize</h4>
+        <p class="step-desc">Production deployment with ongoing monitoring, support, and continuous optimization to maximize ROI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TECH STACK ===== -->
+<section class="tech" id="tech">
+  <div class="tech-inner">
+    <div class="section-head fade-in" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+      <span class="section-label">Technologies</span>
+      <h2 class="section-title">Built on <span class="hl">Industry-Leading</span> Platforms</h2>
+      <p class="section-desc" style="text-align:center;">We leverage the best-in-class tools and platforms to build robust, scalable solutions for our clients.</p>
+    </div>
+    <div class="tech-grid">
+      <!-- Row 1 -->
+      <div class="tech-item fade-in stagger-1">
+        <div class="tech-logo" style="background:#e3f2fd;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#1a73e8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <span class="tech-name">AWS</span>
+      </div>
+      <div class="tech-item fade-in stagger-2">
+        <div class="tech-logo" style="background:#e8f4fd;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#0078d4"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+        </div>
+        <span class="tech-name">Azure</span>
+      </div>
+      <div class="tech-item fade-in stagger-3">
+        <div class="tech-logo" style="background:#e8f5e9;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#34a853"><polygon points="12,2 22,19 2,19"/></svg>
+        </div>
+        <span class="tech-name">GCP</span>
+      </div>
+      <div class="tech-item fade-in stagger-4">
+        <div class="tech-logo" style="background:#fce4ec;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#326ce5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="white"/><line x1="12" y1="4" x2="12" y2="7" stroke="white" stroke-width="2"/><line x1="12" y1="17" x2="12" y2="20" stroke="white" stroke-width="2"/><line x1="4" y1="12" x2="7" y2="12" stroke="white" stroke-width="2"/><line x1="17" y1="12" x2="20" y2="12" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <span class="tech-name">Kubernetes</span>
+      </div>
+      <div class="tech-item fade-in stagger-1">
+        <div class="tech-logo" style="background:#e0f2f1;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#009688"><path d="M4 6l8-4 8 4v12l-8 4-8-4z"/><path d="M4 6l8 4 8-4M12 10v12" stroke="#009688" stroke-width="1" fill="none"/></svg>
+        </div>
+        <span class="tech-name">Terraform</span>
+      </div>
+      <div class="tech-item fade-in stagger-2">
+        <div class="tech-logo" style="background:#ede7f6;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#7b1fa2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <span class="tech-name">PyTorch</span>
+      </div>
+      <!-- Row 2 -->
+      <div class="tech-item fade-in stagger-3">
+        <div class="tech-logo" style="background:#fff3e0;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#f57c00"><rect x="2" y="7" width="20" height="10" rx="3"/><path d="M7 12h10M12 9v6" stroke="white" stroke-width="1.5"/></svg>
+        </div>
+        <span class="tech-name">Kafka</span>
+      </div>
+      <div class="tech-item fade-in stagger-4">
+        <div class="tech-logo" style="background:#e3f2fd;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#1976d2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg>
+        </div>
+        <span class="tech-name">Spark</span>
+      </div>
+      <div class="tech-item fade-in stagger-1">
+        <div class="tech-logo" style="background:#e8f5e9;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#388e3c"><circle cx="12" cy="12" r="4"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><line x1="6" y1="7" x2="10" y2="10" stroke="#388e3c" stroke-width="1.5"/><line x1="14" y1="10" x2="18" y2="7" stroke="#388e3c" stroke-width="1.5"/><line x1="6" y1="17" x2="10" y2="14" stroke="#388e3c" stroke-width="1.5"/><line x1="14" y1="14" x2="18" y2="17" stroke="#388e3c" stroke-width="1.5"/></svg>
+        </div>
+        <span class="tech-name">TensorFlow</span>
+      </div>
+      <div class="tech-item fade-in stagger-2">
+        <div class="tech-logo" style="background:#e0f7fa;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#0097a7"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <span class="tech-name">Docker</span>
+      </div>
+      <div class="tech-item fade-in stagger-3">
+        <div class="tech-logo" style="background:#fce4ec;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#c62828"><path d="M12 3L1 9l11 6 9-4.91V17h2V9z"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+        </div>
+        <span class="tech-name">Snowflake</span>
+      </div>
+      <div class="tech-item fade-in stagger-4">
+        <div class="tech-logo" style="background:#ede7f6;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#512da8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="#512da8" stroke-width="2" fill="none"/></svg>
+        </div>
+        <span class="tech-name">OpenAI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta">
+  <div class="cta-inner fade-in">
+    <h2>Ready to Transform Your<br/>Business with Technology?</h2>
+    <p>Join 50+ enterprises that trust Axopian Consulting to power their digital future. Let's build something extraordinary together.</p>
+    <div class="cta-buttons">
+      <a href="#contact" class="btn-white">Start a Conversation</a>
+      <a href="#services" class="btn-outline-white">View All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info slide-left">
+      <div>
+        <span class="section-label">Get In Touch</span>
+        <h2 class="section-title">Let's Start Your <span class="hl">Digital Journey</span></h2>
+        <p class="section-desc">
+          Ready to explore how Axopian Consulting can accelerate your business? Fill in the form and one of our experts will reach out within 24 hours.
+        </p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.38 2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Phone</strong>
+            <span>+1 (800) AXOPIAN</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Email</strong>
+            <span>hello@axopian.com</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Headquarters</strong>
+            <span>123 Innovation Drive, Suite 400<br/>San Francisco, CA 94105</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form-card slide-right">
+      <h3 style="font-family:'Manrope',sans-serif; color:var(--blue-900); font-size:1.4rem; font-weight:800; margin-bottom:28px;">Send Us a Message</h3>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Work Email *</label>
+          <input type="email" placeholder="john@company.com" required />
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" placeholder="Your Company Name" />
+        </div>
+        <div class="form-group">
+          <label>Service of Interest</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Software Services</option>
+            <option>Data Services</option>
+            <option>Cloud Services</option>
+            <option>AI & Machine Learning</option>
+            <option>Multiple Services</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message *</label>
+          <textarea placeholder="Tell us about your project or challenge..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          Send Message
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="text-decoration:none;">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 26 26" fill="none">
+              <path d="M13 2L23 8V18L13 24L3 18V8L13 2Z" stroke="white" stroke-width="2" fill="none"/>
+              <circle cx="13" cy="13" r="4" fill="white"/>
+              <line x1="13" y1="2" x2="13" y2="9" stroke="white" stroke-width="1.5"/>
+              <line x1="13" y1="17" x2="13" y2="24" stroke="white" stroke-width="1.5"/>
+              <line x1="23" y1="8" x2="17" y2="11.5" stroke="white" stroke-width="1.5"/>
+              <line x1="9" y1="14.5" x2="3" y2="18" stroke="white" stroke-width="1.5"/>
+              <line x1="3" y1="8" x2="9" y2="11.5" stroke="white" stroke-width="1.5"/>
+              <line x1="17" y1="14.5" x2="23" y2="18" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Axopian</span>
+            <span class="nav-logo-tagline">Consulting</span>
+          </div>
+        </a>
+        <p>Transforming businesses through intelligent technology solutions. Your partner in the digital era.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Software Development</a></li>
+          <li><a href="#services">Data Engineering</a></li>
+          <li><a href="#services">Cloud Migration</a></li>
+          <li><a href="#services">AI & ML Solutions</a></li>
+          <li><a href="#services">DevOps & Automation</a></li>
+          <li><a href="#services">IT Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#">Leadership Team</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Blog & Insights</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Whitepapers</a></li>
+          <li><a href="#">Webinars</a></li>
+          <li><a href="#">Partner Program</a></li>
+          <li><a href="#">Support Portal</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Axopian Consulting. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SUCCESS TOAST ===== -->
+<div id="toast" style="
+  position:fixed; bottom:32px; right:32px; z-index:9999;
+  background: var(--blue-900); color:white;
+  padding:16px 24px; border-radius:12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  border-left: 4px solid #4ade80;
+  display:flex; align-items:center; gap:12px;
+  transform:translateY(100px); opacity:0;
+  transition: all 0.4s cubic-bezier(.4,0,.2,1);
+  font-size:0.9rem; font-weight:500;
+">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  Message sent! We'll be in touch within 24 hours.
+</div>
+
+<script>
+  // ===== NAVBAR SCROLL =====
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // ===== MOBILE MENU =====
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const ham = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    ham.classList.toggle('active');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('active');
+  }
+
+  // ===== INTERSECTION OBSERVER ANIMATIONS =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => observer.observe(el));
+
+  // ===== FORM SUBMIT =====
+  function handleSubmit(e) {
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.style.transform = 'translateY(0)';
+    toast.style.opacity = '1';
+    setTimeout(() => {
+      toast.style.transform = 'translateY(100px)';
+      toast.style.opacity = '0';
+    }, 4000);
+    e.target.reset();
+  }
+
+  // ===== ACTIVE NAV LINK =====
+  const sections = document.querySelectorAll('section[id], .hero[id]');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current
+        ? 'var(--accent)' : '';
+    });
+  });
+
+  // ===== SMOOTH HOVER EFFECT ON TECH ITEMS =====
+  document.querySelectorAll('.tech-item').forEach(item => {
+    item.addEventListener('mousemove', e => {
+      const rect = item.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      item.style.transform = `translateY(-4px) rotateX(${-y * 0.05}deg) rotateY(${x * 0.05}deg)`;
+    });
+    item.addEventListener('mouseleave', () => {
+      item.style.transform = '';
+    });
+  });
+</script>
+</body>
+</html>
