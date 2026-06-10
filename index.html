@@ -3,2290 +3,2133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Axopian Consulting Pvt Ltd | Empowering Insight. Driving Innovation.</title>
-  <meta name="description" content="Axopian Consulting — IoT software services, Cloud solutions on Azure, GCP & AWS. Data, AI, Infra Automation & DevSecOps. Offices in Kochi & Singapore." />
+  <title>Axopian Consulting | Empowering Insight. Driving Innovation.</title>
+  <meta name="description" content="Axopian Consulting — IoT software & hardware services, Cloud solutions on Azure, GCP & AWS. Data, AI, Infra Automation & DevSecOps. Offices in Kochi & Singapore." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ===== VARIABLES ===== */
     :root {
-      /* Pleasant royal-blue palette — clear blue, easy on the eyes */
-      --navy: #0f3d91;          /* deep royal blue (replaces near-black navy) */
-      --navy-mid: #1450b8;      /* mid royal blue */
-      --navy-light: #1a66d4;    /* bright blue */
-      --navy-glow: #2278f0;     /* vivid blue glow */
-      --accent: #3b8ef8;        /* bright accent blue */
-      --accent-light: #60a8ff;  /* light accent */
-      --cyan: #06cde8;          /* cyan highlight */
+      --navy: #0B2447;
+      --navy-dark: #061530;
+      --navy-mid: #1a3a6b;
+      --blue: #1565C0;
+      --blue-bright: #1877F2;
+      --blue-light: #3395FF;
+      --cyan: #00B4D8;
       --white: #ffffff;
-      --off-white: #f0f6ff;     /* very light blue-tinted white */
-      --gray-light: #dce8f8;    /* blue-tinted light gray */
-      --gray: #7094bc;          /* blue-gray */
-      --text-dark: #0a2454;     /* dark blue for body text */
-      --gradient-hero: linear-gradient(135deg, #0b3080 0%, #1450b8 50%, #1a66d4 100%);
-      --gradient-accent: linear-gradient(135deg, #3b8ef8, #06cde8);
-      --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      --shadow-card: 0 4px 24px rgba(15,61,145,0.18);
-      --shadow-hover: 0 12px 40px rgba(59,142,248,0.3);
+      --off-white: #F0F6FF;
+      --border: #DCE8FF;
+      --text: #0B2447;
+      --text-muted: #4A6FA5;
+      --shadow: 0 4px 30px rgba(11,36,71,0.10);
+      --shadow-hover: 0 12px 48px rgba(11,36,71,0.18);
       --radius: 16px;
       --radius-sm: 10px;
-      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
     }
-
+    /* ===== RESET ===== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; overflow-x: hidden; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--white);
-      color: var(--text-dark);
-      overflow-x: hidden;
-    }
-    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.2; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+    h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.2; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
     section { position: relative; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--off-white); }
+    ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
 
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--navy); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    /* ===== PRELOADER ===== */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+    #preloader.hidden { opacity: 0; visibility: hidden; }
+    .preloader-inner { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .preloader-logo { height: 60px; animation: preloaderPulse 1.2s ease-in-out infinite; }
+    .preloader-bar {
+      width: 200px; height: 3px; background: var(--border);
+      border-radius: 2px; overflow: hidden;
+    }
+    .preloader-bar-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--navy), var(--blue-bright));
+      border-radius: 2px;
+      animation: preloaderFill 1.5s ease forwards;
+    }
+    @keyframes preloaderPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.95)} }
+    @keyframes preloaderFill { 0%{width:0%} 100%{width:100%} }
 
     /* ===== NAV ===== */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      padding: 0 5%;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background var(--transition), box-shadow var(--transition);
-    }
-    nav.scrolled {
-      background: rgba(10, 22, 40, 0.95);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 72px; padding: 0 6%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(12px);
-      box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .nav-logo svg { display: none; }
-    .nav-logo-text { display: none; }
-    .nav-logo-img-wrap { display: none; }
-    .nav-logo-real-img { display: none; }
-    .nav-logo-icon {
-      height: 52px;
-      width: auto;
-      display: block;
-      flex-shrink: 0;
-    }
-    .nav-logo-text-block {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 3px;
-    }
+    nav.scrolled { border-bottom-color: var(--border); box-shadow: var(--shadow); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { height: 44px; width: auto; }
     .nav-logo-name {
+      display: flex; flex-direction: column; line-height: 1.15;
+    }
+    .nav-logo-name .name-main {
       font-family: 'Space Grotesk', sans-serif;
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: #ffffff;
-      letter-spacing: 1.5px;
-      line-height: 1;
-      white-space: nowrap;
+      font-size: 1.45rem; font-weight: 800;
+      color: var(--navy); letter-spacing: 0.4px;
     }
-    .nav-logo-name .consulting {
-      font-weight: 400;
-      letter-spacing: 1px;
+    .nav-logo-name .name-sub {
+      font-size: 0.66rem; font-weight: 500;
+      color: var(--text-muted); letter-spacing: 0.3px;
     }
-    .nav-logo-rule {
-      width: 100%;
-      height: 1px;
-      background: rgba(255,255,255,0.3);
-    }
-    .nav-logo-tagline {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 0.58rem;
-      color: #4dbde8;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
     .nav-links a {
-      color: rgba(255,255,255,0.85);
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 0.88rem; font-weight: 500; color: var(--text-muted);
+      letter-spacing: 0.3px;
       transition: color var(--transition);
       position: relative;
     }
     .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0; right: 0;
-      height: 2px;
-      background: var(--gradient-accent);
-      border-radius: 2px;
-      transform: scaleX(0);
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--navy);
+      transform: scaleX(0); transform-origin: center;
       transition: transform var(--transition);
     }
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover { color: var(--navy); }
     .nav-links a:hover::after { transform: scaleX(1); }
     .nav-cta {
-      background: var(--gradient-accent);
-      color: var(--white) !important;
-      padding: 10px 22px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      transition: transform var(--transition), box-shadow var(--transition);
+      background: var(--navy); color: var(--white) !important;
+      padding: 10px 22px; border-radius: 50px;
+      font-size: 0.85rem !important; font-weight: 600 !important;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition) !important;
     }
-    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
-    .nav-cta::after { display: none; }
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--blue-bright) !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(24,119,242,0.35) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: var(--transition); display: block; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
+      padding: 24px 6%; flex-direction: column; gap: 20px;
+      border-bottom: 1px solid var(--border);
+      transform: translateY(-10px); opacity: 0;
+      transition: var(--transition); z-index: 999;
     }
-    .nav-toggle span {
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: var(--white);
-      border-radius: 2px;
-      transition: var(--transition);
+    .mobile-menu.open { display: flex; transform: translateY(0); opacity: 1; }
+    .mobile-menu a { font-size: 1rem; font-weight: 500; color: var(--text); padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-cta {
+      background: var(--navy); color: var(--white) !important;
+      text-align: center; border-radius: 50px; padding: 12px !important;
+      border-bottom: none !important;
     }
 
     /* ===== HERO ===== */
     #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      background: var(--gradient-hero);
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center;
+      background: var(--white);
       overflow: hidden;
-      position: relative;
     }
-    .hero-video-bg {
-      position: absolute;
-      inset: 0;
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      opacity: 0.15;
-      z-index: 0;
+    #heroCanvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      pointer-events: none;
     }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(10,22,40,0.9) 0%, rgba(10,22,40,0.6) 50%, rgba(10,22,40,0.85) 100%);
-      z-index: 1;
-    }
-    /* Animated grid lines */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background-image:
-        linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridMove 20s linear infinite;
-    }
-    @keyframes gridMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 60px 60px; }
-    }
-    /* Floating orbs */
-    .orb {
+    .hero-glow {
       position: absolute;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.3;
-      animation: orbFloat 8s ease-in-out infinite;
-      z-index: 1;
+      pointer-events: none;
     }
-    .orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; animation-delay: 0s; }
-    .orb-2 { width: 300px; height: 300px; background: var(--cyan); bottom: -80px; left: 10%; animation-delay: 3s; }
-    .orb-3 { width: 200px; height: 200px; background: #5b8dee; top: 40%; right: 20%; animation-delay: 5s; }
-    @keyframes orbFloat {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-30px) scale(1.05); }
+    .hero-glow-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(24,119,242,0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      animation: glowFloat 8s ease-in-out infinite;
+    }
+    .hero-glow-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,180,216,0.06) 0%, transparent 70%);
+      bottom: 0; left: 10%;
+      animation: glowFloat 10s ease-in-out infinite reverse;
     }
     .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 5%;
+      position: relative; z-index: 2;
+      padding: 0 6%;
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
-      padding-top: 80px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
       align-items: center;
+      gap: 60px;
+      padding-top: 80px;
     }
+    .hero-left {}
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(37,99,235,0.15);
-      border: 1px solid rgba(37,99,235,0.3);
-      color: var(--cyan);
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      animation: fadeInUp 0.8s ease 0.2s both;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--off-white); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 600; color: var(--blue-bright);
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.8s ease forwards;
     }
-    .hero-badge::before {
-      content: '';
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--cyan);
-      animation: pulse 2s ease infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+    .hero-badge-dot {
+      width: 7px; height: 7px; background: var(--blue-bright);
+      border-radius: 50%; animation: blink 1.2s ease-in-out infinite;
     }
     .hero-title {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      animation: fadeInUp 0.8s ease 0.3s both;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 800; line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 8px;
+      animation: fadeInUp 0.8s ease 0.2s both;
     }
-    .hero-title .highlight {
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero-title-line2 {
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 800; line-height: 1.1;
+      background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.35s both;
     }
-    .hero-caption {
-      font-size: 1rem;
-      color: var(--cyan);
-      font-weight: 500;
-      letter-spacing: 1px;
-      margin-bottom: 1.5rem;
-      animation: fadeInUp 0.8s ease 0.4s both;
-    }
-    .hero-desc {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+    .hero-tagline {
+      font-size: 1.1rem; color: var(--text-muted); font-weight: 400;
+      margin-bottom: 12px;
       animation: fadeInUp 0.8s ease 0.5s both;
     }
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+    .hero-typed-wrap {
+      font-size: 1.2rem; font-weight: 600; color: var(--navy);
+      margin-bottom: 36px; min-height: 34px;
       animation: fadeInUp 0.8s ease 0.6s both;
     }
+    .hero-typed-prefix { color: var(--text-muted); font-weight: 400; }
+    #heroTyped { color: var(--blue-bright); border-right: 2px solid var(--blue-bright); padding-right: 3px; animation: blink 0.75s step-end infinite; }
+    .hero-btns {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.75s both;
+    }
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--gradient-accent);
-      color: var(--white);
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform var(--transition), box-shadow var(--transition);
-      border: none;
-      cursor: pointer;
+      background: var(--navy); color: var(--white);
+      padding: 14px 32px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600; letter-spacing: 0.3px;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(11,36,71,0.25);
+      display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(37,99,235,0.45); }
+    .btn-primary:hover { background: var(--blue-bright); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(24,119,242,0.4); }
+    .btn-primary i { font-size: 0.85em; }
     .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--white);
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 2px solid rgba(255,255,255,0.3);
-      transition: all var(--transition);
-      cursor: pointer;
+      background: transparent; color: var(--navy);
+      padding: 14px 32px; border-radius: 50px;
+      border: 2px solid var(--navy);
+      font-size: 0.95rem; font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); transform: translateY(-3px); }
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      margin-top: 3rem;
-      background: rgba(255,255,255,0.1);
-      border-radius: var(--radius);
-      overflow: hidden;
-      animation: fadeInUp 0.8s ease 0.7s both;
+    .btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(11,36,71,0.2); }
+    .hero-right {
+      display: flex; justify-content: center; align-items: center;
+      animation: fadeInRight 1s ease 0.4s both;
     }
-    .hero-stat {
-      background: rgba(255,255,255,0.05);
-      padding: 1.5rem;
-      text-align: center;
-      backdrop-filter: blur(4px);
+    /* ── GLOBE VISUALIZATION ── */
+    .globe-wrap {
+      position: relative; width: 440px; height: 440px; flex-shrink: 0;
     }
-    .hero-stat-num {
-      font-size: 2rem;
-      font-weight: 800;
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    #globeCanvas { width: 440px; height: 440px; display: block; }
+    .globe-badge {
+      position: absolute;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 9px 14px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-weight: 600; color: var(--navy);
+      box-shadow: var(--shadow); white-space: nowrap;
+      animation: chipFloat 3s ease-in-out infinite;
+      pointer-events: none;
     }
-    .hero-stat-label {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.6);
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .globe-badge i { font-size: 0.95rem; color: var(--blue-bright); }
+    .gb-1 { top: 16px; left: -8px; animation-delay: 0s; }
+    .gb-2 { top: 16px; right: -8px; animation-delay: 0.8s; }
+    .gb-3 { bottom: 60px; left: -8px; animation-delay: 1.6s; }
+    .gb-4 { bottom: 60px; right: -8px; animation-delay: 2.4s; }
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--text-muted); font-size: 0.78rem; letter-spacing: 1px;
+      animation: fadeInUp 1s ease 1.2s both;
     }
-    /* Hero right visual — animated AI/IoT SVG */
-    .hero-visual {
-      position: relative;
-      animation: fadeInRight 0.8s ease 0.4s both;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .scroll-mouse {
+      width: 22px; height: 34px; border: 2px solid var(--border);
+      border-radius: 11px; position: relative;
     }
-    .hero-visual svg { width: 100%; max-width: 480px; height: auto; filter: drop-shadow(0 0 40px rgba(37,99,235,0.35)); }
-
-    /* SVG animation keyframes */
-    @keyframes rotateSlow   { from { transform: rotate(0deg);   } to { transform: rotate(360deg);  } }
-    @keyframes rotateSlowR  { from { transform: rotate(0deg);   } to { transform: rotate(-360deg); } }
-    @keyframes pulsate      { 0%,100% { opacity:0.3; r:4; } 50% { opacity:1; r:6; } }
-    @keyframes pulsateLarge { 0%,100% { opacity:0.15; } 50% { opacity:0.55; } }
-    @keyframes dataFlow     { 0% { stroke-dashoffset: 300; opacity:0; } 40% { opacity:1; } 100% { stroke-dashoffset: 0; opacity:0; } }
-    @keyframes eyeGlow      { 0%,100% { opacity:0.6; } 50% { opacity:1; } }
-    @keyframes scanLine     { 0% { transform: translateY(0px); opacity:0.7; } 100% { transform: translateY(120px); opacity:0; } }
-    @keyframes floatChip    { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-    @keyframes signalRing   { 0% { r:8; opacity:0.9; stroke-width:2; } 100% { r:28; opacity:0; stroke-width:0.5; } }
-    @keyframes blink        { 0%,90%,100% { opacity:1; } 95% { opacity:0; } }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInRight {
-      from { opacity: 0; transform: translateX(30px); }
-      to { opacity: 1; transform: translateX(0); }
+    .scroll-mouse::after {
+      content: ''; position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+      width: 3px; height: 7px; background: var(--navy);
+      border-radius: 2px; animation: scrollBounce 1.5s ease infinite;
     }
 
     /* ===== TICKER ===== */
-    .ticker-wrap {
-      background: var(--navy-mid);
-      padding: 14px 0;
-      overflow: hidden;
-      border-top: 1px solid rgba(59,142,248,0.25);
-      border-bottom: 1px solid rgba(59,142,248,0.25);
-    }
     .ticker {
-      display: flex;
-      animation: ticker 30s linear infinite;
-      white-space: nowrap;
+      background: var(--navy); padding: 14px 0; overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: tickerMove 30s linear infinite;
+      width: max-content;
     }
     .ticker-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 0 2rem;
-      color: rgba(255,255,255,0.7);
-      font-size: 0.85rem;
-      font-weight: 500;
+      display: flex; align-items: center; gap: 10px; padding: 0 32px;
+      color: rgba(255,255,255,0.7); font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.5px; white-space: nowrap;
     }
-    .ticker-item i { color: var(--cyan); font-size: 0.8rem; }
-    .ticker-sep { color: var(--accent); }
-    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item i { color: var(--cyan); font-size: 0.9rem; }
+    .ticker-dot { width: 4px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 50%; }
 
     /* ===== SECTION COMMON ===== */
-    .section-header { text-align: center; margin-bottom: 4rem; }
-    .section-badge {
-      display: inline-block;
-      background: rgba(37,99,235,0.1);
-      color: var(--accent);
-      border: 1px solid rgba(37,99,235,0.2);
-      padding: 5px 16px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 1rem;
+    .section-pad { padding: 100px 6%; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-badge-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--off-white); border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 50px;
+      font-size: 0.74rem; font-weight: 700; color: var(--blue-bright);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-badge-label.light {
+      background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); color: var(--cyan);
     }
     .section-title {
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      color: var(--navy);
-      margin-bottom: 1rem;
+      font-weight: 800; color: var(--navy); margin-bottom: 14px;
     }
-    .section-title .gradient-text {
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .section-title.light { color: var(--white); }
+    .section-title .hl {
+      background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .section-desc {
-      font-size: 1.05rem;
-      color: var(--gray);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-    .section-pad { padding: 100px 5%; }
-    .container { max-width: 1300px; margin: 0 auto; }
+    .section-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+    .section-desc.light { color: rgba(255,255,255,0.65); }
+
+    /* Scroll animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
 
     /* ===== ABOUT ===== */
-    #about { background: var(--off-white); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-label { font-size: 0.8rem; font-weight: 700; color: var(--blue-bright); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+    .about-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--navy); margin-bottom: 20px; line-height: 1.15; }
+    .about-text { font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 32px; }
+    .about-features { display: flex; flex-direction: column; gap: 16px; }
+    .about-feature { display: flex; align-items: flex-start; gap: 14px; }
+    .about-feature-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--off-white); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--blue-bright); font-size: 1rem;
+      transition: var(--transition);
     }
-    .about-img-wrap {
-      position: relative;
-    }
-    .about-img-wrap img {
-      width: 100%;
-      height: 480px;
-      object-fit: cover;
-      border-radius: var(--radius);
-    }
-    .about-img-badge {
-      position: absolute;
-      bottom: -20px; right: -20px;
-      background: var(--navy);
-      color: white;
-      padding: 24px;
-      border-radius: var(--radius);
+    .about-feature:hover .about-feature-icon { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .about-feature-text h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .about-feature-text p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .about-stat-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
       text-align: center;
-      box-shadow: var(--shadow-card);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
     }
-    .about-img-badge .num {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: var(--gradient-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .about-stat-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--navy), var(--blue-bright));
+      opacity: 0; transition: var(--transition);
     }
-    .about-img-badge small { font-size: 0.75rem; color: var(--gray); display: block; }
-    .about-text h2 { color: var(--navy); margin-bottom: 1.5rem; }
-    .about-text p { color: #475569; line-height: 1.8; margin-bottom: 1.5rem; }
-    .about-pillars {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 2rem;
+    .about-stat-card:hover::before { opacity: 1; }
+    .about-stat-card:hover .stat-num, .about-stat-card:hover .stat-label { color: var(--white); -webkit-text-fill-color: var(--white); }
+    .about-stat-card > * { position: relative; z-index: 1; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.6rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--navy), var(--blue-bright));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1; margin-bottom: 6px;
+      display: block;
     }
-    .pillar {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 16px;
-      background: white;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--gray-light);
-      transition: box-shadow var(--transition);
-    }
-    .pillar:hover { box-shadow: var(--shadow-hover); }
-    .pillar-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      background: var(--gradient-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 0.9rem;
-      flex-shrink: 0;
-    }
-    .pillar-text h4 { font-size: 0.875rem; color: var(--navy); margin-bottom: 2px; }
-    .pillar-text p { font-size: 0.78rem; color: var(--gray); margin: 0; }
+    .stat-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; }
+    .stat-icon { font-size: 1.8rem; margin-bottom: 10px; color: var(--blue-bright); opacity: 0.3; }
+    .about-stat-card:hover .stat-icon { opacity: 0.6; color: white; }
 
     /* ===== SERVICES ===== */
     #services { background: var(--navy); }
-    #services .section-title { color: var(--white); }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    .service-card {
-      background: var(--gradient-card);
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .svc-card {
+      background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-      position: relative;
-      overflow: hidden;
+      border-radius: var(--radius); padding: 36px 28px;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
       cursor: pointer;
     }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transition: transform var(--transition);
+    .svc-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(24,119,242,0.1), rgba(0,180,216,0.05));
+      opacity: 0; transition: var(--transition);
     }
-    .service-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(37,99,235,0.35);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    .svc-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blue-bright), var(--cyan));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.5s ease;
     }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-icon {
-      width: 60px; height: 60px;
-      border-radius: var(--radius-sm);
-      background: rgba(37,99,235,0.15);
-      border: 1px solid rgba(37,99,235,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--accent-light);
-      margin-bottom: 1.25rem;
-      transition: background var(--transition);
+    .svc-card:hover::before { opacity: 1; }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-card:hover { border-color: rgba(24,119,242,0.3); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .svc-icon-wrap {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: rgba(24,119,242,0.15); border: 1px solid rgba(24,119,242,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px; transition: var(--transition);
     }
-    .service-card:hover .service-icon { background: rgba(37,99,235,0.3); }
-    .service-card h3 { color: var(--white); font-size: 1.15rem; margin-bottom: 0.75rem; }
-    .service-card p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem; }
-    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tag {
-      background: rgba(37,99,235,0.15);
-      color: var(--cyan);
-      font-size: 0.72rem;
-      padding: 4px 10px;
-      border-radius: 50px;
-      font-weight: 500;
-      border: 1px solid rgba(6,182,212,0.2);
-    }
-    .service-arrow {
-      position: absolute;
-      bottom: 1.5rem; right: 1.5rem;
-      color: var(--accent-light);
-      opacity: 0;
-      transform: translateX(-8px);
-      transition: all var(--transition);
-    }
-    .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
+    .svc-card:hover .svc-icon-wrap { background: var(--blue-bright); border-color: var(--blue-bright); box-shadow: 0 0 30px rgba(24,119,242,0.5); }
+    .svc-icon-wrap i { font-size: 1.4rem; color: var(--blue-light); transition: var(--transition); }
+    .svc-card:hover .svc-icon-wrap i { color: var(--white); }
+    .svc-title { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .svc-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+    .svc-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; font-size: 0.83rem; font-weight: 600; color: var(--blue-light); transition: var(--transition); }
+    .svc-link:hover { color: var(--cyan); gap: 10px; }
+    .svc-link i { font-size: 0.75rem; }
 
-    /* ===== CLOUD SECTION ===== */
-    #cloud {
-      background: white;
-      padding: 100px 5%;
+    /* ===== CLOUD ===== */
+    #cloud { background: var(--off-white); }
+    .cloud-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .cloud-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px 32px;
+      box-shadow: var(--shadow); transition: var(--transition);
+      position: relative; overflow: hidden;
     }
-    .cloud-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
+    .cloud-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
     }
-    .cloud-platforms {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .cloud-platform {
-      background: var(--navy);
-      border-radius: var(--radius);
-      padding: 2rem 1rem;
-      text-align: center;
-      transition: transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-    }
-    .cloud-platform:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(10,22,40,0.25);
-    }
-    .cloud-platform-icon {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
-    }
-    .cloud-platform h4 { color: white; font-size: 0.95rem; margin-bottom: 4px; }
-    .cloud-platform small { color: var(--gray); font-size: 0.75rem; }
-    /* Cloud platform icon colors */
-    .azure-icon { color: #0078d4; }
-    .aws-icon { color: #ff9900; }
-    .gcp-icon { color: #4285f4; }
+    .cloud-azure::before { background: linear-gradient(90deg, #0078D4, #50C0FF); }
+    .cloud-gcp::before { background: linear-gradient(90deg, #4285F4, #34A853, #FBBC04, #EA4335); }
+    .cloud-aws::before { background: linear-gradient(90deg, #FF9900, #232F3E); }
+    .cloud-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: transparent; }
+    .cloud-logo-wrap { margin-bottom: 28px; }
+    .cloud-logo-icon { font-size: 2.8rem; margin-bottom: 6px; }
+    .cloud-azure .cloud-logo-icon { color: #0078D4; }
+    .cloud-gcp .cloud-logo-icon { color: #4285F4; }
+    .cloud-aws .cloud-logo-icon { color: #FF9900; }
+    .cloud-name { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .cloud-tagline { font-size: 0.82rem; color: var(--text-muted); }
+    .cloud-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .cloud-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
+    .cloud-features li i { color: var(--blue-bright); font-size: 0.75rem; margin-top: 4px; flex-shrink: 0; }
 
-    .cloud-focus { display: flex; flex-direction: column; gap: 1rem; }
-    .cloud-focus-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px;
-      background: var(--off-white);
-      border-radius: var(--radius-sm);
-      border-left: 4px solid var(--accent);
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-    .cloud-focus-item:hover { box-shadow: var(--shadow-hover); transform: translateX(4px); }
-    .cloud-focus-item i { color: var(--accent); font-size: 1.25rem; margin-top: 2px; flex-shrink: 0; }
-    .cloud-focus-item h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 4px; }
-    .cloud-focus-item p { font-size: 0.83rem; color: var(--gray); line-height: 1.5; margin: 0; }
-
-    /* ===== IOT SECTION ===== */
-    #iot {
-      background: var(--off-white);
-      padding: 100px 5%;
-    }
+    /* ===== IOT ===== */
+    #iot { background: var(--white); }
+    .iot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .iot-visual {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+      position: relative; height: 420px;
+      display: flex; align-items: center; justify-content: center;
     }
-    .iot-img-wrap {
-      position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
+    .iot-center {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--blue-bright));
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 40px rgba(24,119,242,0.4);
+      position: relative; z-index: 2;
     }
-    .iot-img-wrap img {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
+    .iot-center i { font-size: 2.2rem; color: var(--white); }
+    .iot-ring {
+      position: absolute; top: 50%; left: 50%; border-radius: 50%;
+      border: 1px dashed rgba(11,36,71,0.15);
+      transform: translate(-50%,-50%);
+      animation: orbitSpin 15s linear infinite;
     }
-    .iot-img-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,22,40,0.7), transparent);
+    .iot-ring-1 { width: 200px; height: 200px; }
+    .iot-ring-2 { width: 300px; height: 300px; animation-duration: 22s; animation-direction: reverse; }
+    .iot-ring-3 { width: 400px; height: 400px; animation-duration: 30s; }
+    .iot-node {
+      position: absolute; top: 50%; left: 50%;
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--white); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow); font-size: 1.2rem; color: var(--blue-bright);
+      transform-origin: center;
+      transition: var(--transition);
     }
-    .iot-features { display: flex; flex-direction: column; gap: 1.25rem; }
-    .iot-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px;
-      background: white;
-      border-radius: var(--radius-sm);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-      transition: all var(--transition);
+    .iot-node:hover { background: var(--navy); color: var(--white); border-color: var(--navy); transform-origin: center !important; }
+    .iot-node-label {
+      position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+      font-size: 0.62rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; letter-spacing: 0.5px;
     }
-    .iot-feature:hover { box-shadow: var(--shadow-hover); transform: translateX(6px); }
-    .iot-feature-num {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--gradient-accent);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.9rem;
-      flex-shrink: 0;
+    .iot-text {}
+    .iot-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+    .iot-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 32px; }
+    .iot-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .iot-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.92rem; color: var(--text);
+      padding: 14px 16px; border-radius: var(--radius-sm);
+      border: 1px solid transparent; transition: var(--transition);
     }
-    .iot-feature h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 4px; }
-    .iot-feature p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; margin: 0; }
+    .iot-list li:hover { background: var(--off-white); border-color: var(--border); }
+    .iot-list li i { color: var(--blue-bright); margin-top: 2px; font-size: 1rem; flex-shrink: 0; }
+    .iot-list li span { font-weight: 600; }
 
-    /* ===== PROCESS / WHY AXOPIAN ===== */
-    #why { background: var(--navy); padding: 100px 5%; }
-    #why .section-title { color: var(--white); }
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
+    /* ===== NEXIO ===== */
+    #nexio { background: var(--navy); overflow: hidden; }
+    .nexio-header { text-align: center; margin-bottom: 64px; }
+    .nexio-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 30px; padding: 6px 18px; margin-bottom: 20px;
+      font-size: 0.78rem; font-weight: 700; color: var(--cyan); letter-spacing: 1px; text-transform: uppercase;
     }
+    .nexio-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 14px; }
+    .nexio-title .nexio-name {
+      background: linear-gradient(90deg, #1877F2, #00B4D8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nexio-sub { font-size: 1rem; color: rgba(255,255,255,0.55); max-width: 600px; margin: 0 auto; }
+
+    /* Three-column layout */
+    .nexio-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; align-items: start; }
+
+    /* Capabilities card */
+    .nexio-cap-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius); padding: 32px 28px;
+    }
+    .nexio-card-title {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 24px;
+    }
+    .nexio-cap-list { display: flex; flex-direction: column; gap: 14px; }
+    .nexio-cap-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      transition: var(--transition); cursor: default;
+    }
+    .nexio-cap-item:hover { background: rgba(24,119,242,0.10); border-color: rgba(24,119,242,0.25); }
+    .nexio-cap-icon {
+      width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(24,119,242,0.25), rgba(0,180,216,0.15));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; color: var(--cyan);
+    }
+    .nexio-cap-text { display: flex; flex-direction: column; gap: 2px; }
+    .nexio-cap-text strong { font-size: 0.87rem; font-weight: 700; color: var(--white); }
+    .nexio-cap-text span { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
+
+    /* Center visual */
+    .nexio-visual-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius); padding: 32px 28px;
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
+    }
+    .nexio-logo-ring {
+      position: relative; width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nexio-logo-ring::before, .nexio-logo-ring::after {
+      content: ''; position: absolute; border-radius: 50%;
+      border: 1px solid rgba(0,180,216,0.25);
+      animation: orbitSpin 8s linear infinite;
+    }
+    .nexio-logo-ring::before { inset: -14px; }
+    .nexio-logo-ring::after  { inset: -28px; animation-direction: reverse; animation-duration: 14s; border-color: rgba(24,119,242,0.15); }
+    .nexio-logo-disc {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, #1877F2, #00B4D8);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 40px rgba(0,180,216,0.35);
+    }
+    .nexio-logo-disc span {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 900;
+      color: #fff; letter-spacing: -1px;
+    }
+    .nexio-tagline-box { text-align: center; }
+    .nexio-tagline-box h3 { font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .nexio-tagline-box p { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+    .nexio-bar-group { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+    .nexio-bar-row { display: flex; flex-direction: column; gap: 6px; }
+    .nexio-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.55); }
+    .nexio-bar-track { height: 6px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .nexio-bar-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, #1877F2, #00B4D8);
+      width: 0; transition: width 1.4s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ROI card */
+    .nexio-roi-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius); padding: 32px 28px;
+    }
+    .nexio-roi-list { display: flex; flex-direction: column; gap: 20px; }
+    .nexio-roi-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      transition: var(--transition);
+    }
+    .nexio-roi-item:hover { border-color: rgba(0,180,216,0.3); background: rgba(0,180,216,0.06); }
+    .nexio-roi-num {
+      font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 900;
+      background: linear-gradient(135deg, #1877F2, #00B4D8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1; min-width: 80px; text-align: center; flex-shrink: 0;
+    }
+    .nexio-roi-text strong { font-size: 0.88rem; font-weight: 700; color: var(--white); display: block; margin-bottom: 3px; }
+    .nexio-roi-text span { font-size: 0.75rem; color: rgba(255,255,255,0.42); line-height: 1.4; }
+    .nexio-pulse {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--cyan); margin-right: 6px;
+      animation: pingOut 1.6s ease-in-out infinite;
+    }
+    .nexio-bottom-strip {
+      margin-top: 48px; padding: 24px 32px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    }
+    .nexio-strip-text h4 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .nexio-strip-text p { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+    .nexio-strip-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+    .nexio-chip {
+      background: rgba(24,119,242,0.15); border: 1px solid rgba(24,119,242,0.28);
+      border-radius: 20px; padding: 6px 14px; font-size: 0.75rem; font-weight: 600; color: #7db8ff;
+    }
+    @media (max-width: 1100px) { .nexio-grid { grid-template-columns: 1fr; } }
+
+    /* ===== WHY AXOPIAN ===== */
+    #why { background: var(--navy); }
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 20px; }
     .why-card {
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.03);
-      transition: all var(--transition);
-      position: relative;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: 36px 32px;
+      transition: var(--transition); position: relative; overflow: hidden;
     }
-    .why-card:hover { background: rgba(37,99,235,0.1); border-color: rgba(37,99,235,0.3); transform: translateY(-6px); }
-    .why-card-num {
-      position: absolute;
-      top: 16px; right: 20px;
-      font-size: 3rem;
-      font-weight: 900;
-      color: rgba(255,255,255,0.04);
+    .why-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(24,119,242,0.3); transform: translateY(-4px); }
+    .why-num {
       font-family: 'Space Grotesk', sans-serif;
-      line-height: 1;
+      font-size: 3.5rem; font-weight: 800;
+      color: rgba(255,255,255,0.05);
+      position: absolute; top: 16px; right: 24px; line-height: 1;
     }
-    .why-card-icon {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      background: var(--gradient-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: white;
-      margin: 0 auto 1.5rem;
-    }
-    .why-card h3 { color: var(--white); font-size: 1.05rem; margin-bottom: 0.75rem; }
-    .why-card p { color: rgba(255,255,255,0.55); font-size: 0.875rem; line-height: 1.7; }
+    .why-icon { font-size: 1.8rem; color: var(--cyan); margin-bottom: 18px; }
+    .why-title { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .why-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
 
     /* ===== INDUSTRIES ===== */
-    #industries { background: white; padding: 100px 5%; }
-    .industries-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
+    #industries { background: var(--white); }
+    .ind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .ind-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 28px 24px; text-align: center; transition: var(--transition);
+      cursor: pointer; background: var(--white);
     }
-    .industry-card {
-      background: var(--off-white);
-      border: 2px solid transparent;
-      border-radius: var(--radius);
-      padding: 2rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all var(--transition);
+    .ind-card:hover { border-color: var(--navy); background: var(--navy); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .ind-icon-wrap {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--off-white); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; transition: var(--transition);
     }
-    .industry-card:hover {
-      background: var(--navy);
-      border-color: var(--accent);
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-hover);
-    }
-    .industry-card:hover .industry-icon { color: var(--cyan); background: rgba(37,99,235,0.2); }
-    .industry-card:hover h4 { color: var(--white); }
-    .industry-icon {
-      width: 56px; height: 56px;
-      border-radius: 14px;
-      background: rgba(37,99,235,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--accent);
-      margin: 0 auto 1rem;
-      transition: all var(--transition);
-    }
-    .industry-card h4 { font-size: 0.85rem; color: var(--navy); transition: color var(--transition); }
+    .ind-card:hover .ind-icon-wrap { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
+    .ind-icon-wrap i { font-size: 1.4rem; color: var(--blue-bright); transition: var(--transition); }
+    .ind-card:hover .ind-icon-wrap i { color: var(--cyan); }
+    .ind-name { font-size: 0.92rem; font-weight: 700; color: var(--navy); transition: var(--transition); }
+    .ind-card:hover .ind-name { color: var(--white); }
 
     /* ===== OFFICES ===== */
-    #offices { background: var(--off-white); padding: 100px 5%; }
-    .offices-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    #offices { background: var(--off-white); }
+    .offices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
     .office-card {
-      background: var(--navy);
-      border-radius: var(--radius);
-      overflow: hidden;
-      position: relative;
-      transition: transform var(--transition), box-shadow var(--transition);
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: var(--transition);
     }
-    .office-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.2); }
-    .office-img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      opacity: 0.6;
-      transition: opacity var(--transition);
+    .office-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+    .office-header {
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      padding: 36px 32px; position: relative; overflow: hidden;
     }
-    .office-card:hover .office-img { opacity: 0.8; }
-    .office-info {
-      padding: 1.75rem;
-      background: linear-gradient(to bottom, rgba(10,22,40,0), var(--navy));
+    .office-header::before {
+      content: ''; position: absolute; top: -50px; right: -50px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
     }
-    .office-flag { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .office-info h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 0.25rem; }
-    .office-info p { color: var(--gray); font-size: 0.85rem; margin-bottom: 1rem; }
-    .office-detail {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,0.7);
-      font-size: 0.8rem;
-      margin-bottom: 6px;
+    .office-header::after {
+      content: ''; position: absolute; bottom: -30px; left: 30px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: rgba(24,119,242,0.1);
     }
-    .office-detail i { color: var(--cyan); width: 14px; }
+    .office-flag { font-size: 2.5rem; margin-bottom: 10px; }
+    .office-city { font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .office-country { font-size: 0.85rem; color: rgba(255,255,255,0.6); letter-spacing: 1px; text-transform: uppercase; }
+    .office-body { padding: 28px 32px; display: flex; flex-direction: column; gap: 14px; }
+    .office-info { display: flex; align-items: flex-start; gap: 12px; }
+    .office-info i { color: var(--blue-bright); font-size: 0.9rem; margin-top: 3px; flex-shrink: 0; }
+    .office-info span { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+    .office-info a { color: var(--blue-bright); transition: color var(--transition); }
+    .office-info a:hover { color: var(--navy); }
 
     /* ===== STATS ===== */
-    #stats {
-      background: var(--gradient-accent);
-      padding: 80px 5%;
+    #stats { background: var(--navy); padding: 80px 6%; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: var(--radius); overflow: hidden; }
+    .stat-block {
+      background: var(--navy); padding: 48px 32px; text-align: center;
+      position: relative; transition: var(--transition);
     }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      text-align: center;
-    }
-    .stat-item {}
-    .stat-num {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      color: var(--white);
+    .stat-block:hover { background: rgba(255,255,255,0.04); }
+    .stat-block-num {
       font-family: 'Space Grotesk', sans-serif;
-      line-height: 1;
+      font-size: 3rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--white), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1; margin-bottom: 8px;
     }
-    .stat-label {
-      color: rgba(255,255,255,0.8);
-      font-size: 0.9rem;
-      margin-top: 8px;
-      font-weight: 500;
-    }
-    .stat-divider {
-      width: 1px;
-      background: rgba(255,255,255,0.2);
-      margin: auto;
-    }
+    .stat-block-label { font-size: 0.88rem; color: rgba(255,255,255,0.55); font-weight: 500; letter-spacing: 0.5px; }
+    .stat-block-icon { font-size: 1.4rem; color: rgba(255,255,255,0.1); margin-bottom: 12px; }
 
     /* ===== CONTACT ===== */
-    #contact { background: white; padding: 100px 5%; }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .contact-info h2 { color: var(--navy); margin-bottom: 1rem; }
-    .contact-info p { color: var(--gray); line-height: 1.8; margin-bottom: 2rem; }
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 1.5rem;
-    }
+    #contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+    .contact-info-wrap {}
+    .contact-title { font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+    .contact-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 16px; }
     .contact-item-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      background: rgba(37,99,235,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      font-size: 1rem;
-      flex-shrink: 0;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--off-white); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--blue-bright); font-size: 1rem;
+      transition: var(--transition);
     }
-    .contact-item h4 { font-size: 0.85rem; color: var(--navy); margin-bottom: 2px; }
-    .contact-item p { font-size: 0.85rem; color: var(--gray); margin: 0; }
-    .contact-form {
-      background: var(--off-white);
-      border-radius: var(--radius);
-      padding: 2.5rem;
+    .contact-item:hover .contact-item-icon { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .contact-item-text { display: flex; flex-direction: column; }
+    .contact-item-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+    .contact-item-value { font-size: 0.9rem; color: var(--navy); font-weight: 500; }
+    .contact-item-value a { color: var(--blue-bright); transition: color var(--transition); }
+    .contact-item-value a:hover { color: var(--navy); }
+    /* Form */
+    .contact-form-wrap {
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px;
     }
-    .form-group { margin-bottom: 1.25rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--navy); letter-spacing: 0.3px; }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px 16px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border); background: var(--white);
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text);
+      transition: var(--transition); outline: none;
     }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid var(--gray-light);
-      border-radius: var(--radius-sm);
-      font-size: 0.9rem;
-      font-family: 'Inter', sans-serif;
-      background: white;
-      color: var(--text-dark);
-      transition: border-color var(--transition);
-      outline: none;
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--blue-bright); box-shadow: 0 0 0 3px rgba(24,119,242,0.1);
     }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--accent);
-    }
-    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group textarea { resize: vertical; min-height: 120px; }
     .form-submit {
-      width: 100%;
-      padding: 14px;
-      background: var(--gradient-accent);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: transform var(--transition), box-shadow var(--transition);
-      margin-top: 0.5rem;
+      width: 100%; background: var(--navy); color: var(--white);
+      padding: 14px; border: none; border-radius: 50px;
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
     }
-    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,99,235,0.35); }
+    .form-submit:hover { background: var(--blue-bright); box-shadow: 0 8px 30px rgba(24,119,242,0.4); transform: translateY(-2px); }
 
     /* ===== FOOTER ===== */
     footer {
-      background: var(--navy);
-      padding: 60px 5% 24px;
+      background: var(--navy-dark); padding: 60px 6% 30px;
       border-top: 1px solid rgba(255,255,255,0.06);
     }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-    .footer-brand .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      margin-bottom: 1rem;
-    }
-    .footer-logo-wrap { display: none; }
-    .footer-brand .footer-logo img { display: none; }
-    .footer-brand .footer-logo span { display: none; }
-    .footer-brand .footer-logo svg { height: 120px; width: auto; }
-    .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand {}
+    .footer-logo img { height: 40px; width: auto; margin-bottom: 16px; filter: brightness(0) invert(1); }
+    .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 20px; max-width: 260px; }
     .footer-social { display: flex; gap: 10px; }
-    .footer-social a {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.6);
-      font-size: 0.875rem;
-      transition: all var(--transition);
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); font-size: 0.85rem;
+      transition: var(--transition);
     }
-    .footer-social a:hover { background: var(--accent); border-color: var(--accent); color: white; }
-    .footer-col h4 { color: white; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.25rem; letter-spacing: 0.5px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .footer-col ul li a { color: rgba(255,255,255,0.5); font-size: 0.85rem; transition: color var(--transition); }
-    .footer-col ul li a:hover { color: var(--cyan); }
+    .social-btn:hover { background: var(--blue-bright); border-color: var(--blue-bright); color: var(--white); }
+    .footer-col h5 { font-size: 0.8rem; font-weight: 700; color: var(--white); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.45); transition: var(--transition); }
+    .footer-links a:hover { color: var(--white); padding-left: 4px; }
     .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
     }
-    .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
-    .footer-bottom-links { display: flex; gap: 1.5rem; }
-    .footer-bottom-links a { color: rgba(255,255,255,0.35); font-size: 0.8rem; transition: color var(--transition); }
-    .footer-bottom-links a:hover { color: var(--cyan); }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+    .footer-copy span { color: rgba(255,255,255,0.5); }
+    .footer-policies { display: flex; gap: 20px; }
+    .footer-policies a { font-size: 0.78rem; color: rgba(255,255,255,0.3); transition: color var(--transition); }
+    .footer-policies a:hover { color: var(--white); }
 
     /* ===== SCROLL TO TOP ===== */
     #scrollTop {
-      position: fixed;
-      bottom: 2rem; right: 2rem;
-      width: 44px; height: 44px;
-      background: var(--gradient-accent);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all var(--transition);
-      z-index: 999;
-      box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+      position: fixed; bottom: 28px; right: 28px; z-index: 800;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--navy); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; cursor: pointer; border: none;
+      box-shadow: 0 4px 20px rgba(11,36,71,0.3);
+      opacity: 0; transform: translateY(20px);
+      transition: var(--transition);
     }
     #scrollTop.visible { opacity: 1; transform: translateY(0); }
-    #scrollTop:hover { transform: translateY(-4px); }
+    #scrollTop:hover { background: var(--blue-bright); box-shadow: 0 6px 28px rgba(24,119,242,0.4); transform: translateY(-3px); }
 
-    /* ===== ANIMATIONS ON SCROLL ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal-left.visible { opacity: 1; transform: translateX(0); }
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-    /* ===== MOBILE NAV ===== */
-    @media (max-width: 968px) {
-      .nav-links {
-        position: fixed;
-        top: 72px; left: 0; right: 0;
-        background: rgba(10,22,40,0.97);
-        backdrop-filter: blur(16px);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
-        transform: translateY(-120%);
-        transition: transform var(--transition);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-      .nav-links.open { transform: translateY(0); }
-      .nav-toggle { display: flex; }
-      .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-      .nav-toggle.open span:nth-child(2) { opacity: 0; }
-      .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-    }
+    /* ===== KEYFRAMES ===== */
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInRight { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes glowFloat { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-20px,20px)} 66%{transform:translate(20px,-15px)} }
+    @keyframes orbitSpin { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+    @keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes scrollBounce { 0%,100%{transform:translate(-50%,0);opacity:1} 80%{transform:translate(-50%,8px);opacity:0} }
+    @keyframes tickerMove { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(24,119,242,0.4)} 50%{box-shadow:0 0 0 12px rgba(24,119,242,0)} }
+    @keyframes spinSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1100px) {
-      .hero-content { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-visual { display: none; }
-      .about-grid, .cloud-grid, .iot-visual, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .offices-grid { grid-template-columns: 1fr; max-width: 480px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-btns { justify-content: center; }
+      .hero-right { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .iot-grid { grid-template-columns: 1fr; }
+      .iot-visual { height: 300px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 600px) {
-      .section-pad { padding: 70px 4%; }
-      .hero-stats { grid-template-columns: repeat(3, 1fr); }
-      .cloud-platforms { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .cloud-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .offices-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .ind-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .section-pad { padding: 70px 5%; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .ind-grid { grid-template-columns: 1fr 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
-      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-      .about-pillars { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
       .form-row { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; }
-      .btn-primary, .btn-outline { justify-content: center; }
-      .hero-visual-card { display: none; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-title, .hero-title-line2 { font-size: 2.2rem; }
+      .ind-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAVIGATION ===== -->
-  <nav id="navbar">
-    <a href="#hero" class="nav-logo" aria-label="Axopian Consulting">
-      <img class="nav-logo-icon" src="Axopian Icon.png" alt="Axopian logo mark" />
-      <div class="nav-logo-text-block">
-        <span class="nav-logo-name">AXOPIAN <span class="consulting">Consulting</span></span>
-        <div class="nav-logo-rule"></div>
-        <span class="nav-logo-tagline">EMPOWERING INSIGHT. DRIVING INNOVATION.</span>
-      </div>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#cloud">Cloud</a></li>
-      <li><a href="#iot">IoT</a></li>
-      <li><a href="#offices">Offices</a></li>
-      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-    </ul>
-    <div class="nav-toggle" id="navToggle">
-      <span></span><span></span><span></span>
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <img src="Axopian Logo Dark.png" alt="Axopian" class="preloader-logo" />
+    <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <img src="Axopian Icon.png" alt="Axopian" />
+    <div class="nav-logo-name">
+      <span class="name-main">Axopian Consulting</span>
+      <span class="name-sub">Empowering Insight. Driving Innovation.</span>
     </div>
-  </nav>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#cloud">Cloud</a></li>
+    <li><a href="#iot">IoT</a></li>
+    <li><a href="#offices">Offices</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Menu" role="button">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#cloud" class="mobile-link">Cloud</a>
+  <a href="#iot" class="mobile-link">IoT</a>
+  <a href="#offices" class="mobile-link">Offices</a>
+  <a href="#contact" class="mobile-link mobile-cta">Get in Touch</a>
+</div>
 
-  <!-- ===== HERO ===== -->
-  <section id="hero">
-    <!-- Background video using free Pexels embed -->
-    <video class="hero-video-bg" autoplay muted loop playsinline>
-      <source src="https://player.vimeo.com/external/370467553.sd.mp4?s=e90dcaba73c19e0e36f03406b47bbd8a4bddadb5&profile_id=165&oauth2_token_id=57447761" type="video/mp4" />
-    </video>
-    <div class="hero-overlay"></div>
-    <div class="hero-grid"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="hero-content">
-      <div class="hero-left">
-        <div class="hero-badge"><i class="fas fa-microchip"></i> IoT · Cloud · AI · DevSecOps</div>
-        <h1 class="hero-title">
-          Transform Your Business with <span class="highlight">Intelligent Technology</span>
-        </h1>
-        <p class="hero-caption">Empowering Insight. Driving Innovation.</p>
-        <p class="hero-desc">
-          Axopian Consulting delivers cutting-edge IoT solutions and cloud hyperscaler expertise across Azure, GCP & AWS — enabling organizations to harness data, automate infrastructure, and accelerate digital transformation.
-        </p>
-        <div class="hero-actions">
-          <a href="#services" class="btn-primary"><i class="fas fa-rocket"></i> Explore Services</a>
-          <a href="#contact" class="btn-outline"><i class="fas fa-comments"></i> Talk to an Expert</a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-num">50+</div>
-            <div class="hero-stat-label">Clients Served</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">2</div>
-            <div class="hero-stat-label">Global Offices</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">100+</div>
-            <div class="hero-stat-label">Projects Delivered</div>
-          </div>
-        </div>
+<!-- HERO -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        IoT · Cloud · AI · DevSecOps
       </div>
-      <!-- ===== ANIMATED AI / IoT ILLUSTRATION ===== -->
-      <div class="hero-visual">
-        <svg viewBox="0 0 480 500" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <!-- Gradients -->
-            <radialGradient id="bgGlow" cx="50%" cy="50%">
-              <stop offset="0%"   stop-color="#1e4080" stop-opacity="0.5"/>
-              <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="headGrad" cx="40%" cy="35%">
-              <stop offset="0%"   stop-color="#1e3a6e"/>
-              <stop offset="100%" stop-color="#0a1628"/>
-            </radialGradient>
-            <radialGradient id="eyeGrad" cx="40%" cy="35%">
-              <stop offset="0%"   stop-color="#60d8ff"/>
-              <stop offset="100%" stop-color="#2563eb"/>
-            </radialGradient>
-            <radialGradient id="ballGrad2" cx="38%" cy="35%">
-              <stop offset="0%"   stop-color="#60c8f0"/>
-              <stop offset="100%" stop-color="#1a7fcf"/>
-            </radialGradient>
-            <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%"   stop-color="#162d5e"/>
-              <stop offset="100%" stop-color="#0a1628"/>
-            </linearGradient>
-            <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%"   stop-color="#2563eb" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.4"/>
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="softGlow">
-              <feGaussianBlur stdDeviation="6" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <clipPath id="headClip">
-              <rect x="155" y="80" width="170" height="200" rx="28"/>
-            </clipPath>
-          </defs>
-
-          <!-- Background ambient glow -->
-          <ellipse cx="240" cy="250" rx="200" ry="220" fill="url(#bgGlow)"/>
-
-          <!-- ── OUTER ORBIT RINGS ── -->
-          <g transform="translate(240,250)">
-            <!-- Ring 1 — slow rotate -->
-            <g style="animation: rotateSlow 18s linear infinite; transform-origin: 0 0;">
-              <ellipse rx="195" ry="80" fill="none" stroke="rgba(37,99,235,0.18)" stroke-width="1" stroke-dasharray="6 8"/>
-              <circle cx="195" cy="0" r="5" fill="#2563eb" style="animation: pulsate 2s ease infinite;"/>
-              <circle cx="-195" cy="0" r="3.5" fill="#06b6d4" style="animation: pulsate 2s ease 1s infinite;"/>
-            </g>
-            <!-- Ring 2 — reverse -->
-            <g style="animation: rotateSlowR 24s linear infinite; transform-origin: 0 0;">
-              <ellipse rx="170" ry="60" fill="none" stroke="rgba(6,182,212,0.14)" stroke-width="1" stroke-dasharray="4 10"/>
-              <circle cx="0" cy="-60" r="4" fill="#06b6d4" style="animation: pulsate 1.8s ease 0.5s infinite;"/>
-              <circle cx="0" cy="60" r="3" fill="#3b82f6" style="animation: pulsate 1.8s ease 1.3s infinite;"/>
-            </g>
-          </g>
-
-          <!-- ── FLOATING IoT CHIPS (corners) ── -->
-          <!-- Top-left chip -->
-          <g transform="translate(52,90)" style="animation: floatChip 4s ease-in-out infinite;">
-            <rect width="56" height="42" rx="5" fill="#122040" stroke="#2563eb" stroke-width="1.2"/>
-            <rect x="6" y="6" width="44" height="30" rx="3" fill="#0d1f40"/>
-            <!-- chip pins left -->
-            <rect x="-5" y="10" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="-5" y="18" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="-5" y="26" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <!-- chip pins right -->
-            <rect x="53" y="10" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="53" y="18" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="53" y="26" width="8" height="3" rx="1" fill="#2563eb"/>
-            <!-- chip label -->
-            <text x="28" y="24" text-anchor="middle" font-size="7" font-family="monospace" fill="#60d8ff">MCU</text>
-            <text x="28" y="33" text-anchor="middle" font-size="5" font-family="monospace" fill="rgba(255,255,255,0.4)">IoT</text>
-          </g>
-
-          <!-- Top-right chip -->
-          <g transform="translate(360,75)" style="animation: floatChip 5s ease-in-out 1s infinite;">
-            <rect width="56" height="42" rx="5" fill="#122040" stroke="#06b6d4" stroke-width="1.2"/>
-            <rect x="6" y="6" width="44" height="30" rx="3" fill="#0d1f40"/>
-            <rect x="-5" y="10" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="-5" y="18" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="-5" y="26" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="53" y="10" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="53" y="18" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="53" y="26" width="8" height="3" rx="1" fill="#2563eb"/>
-            <text x="28" y="24" text-anchor="middle" font-size="7" font-family="monospace" fill="#60d8ff">GPU</text>
-            <text x="28" y="33" text-anchor="middle" font-size="5" font-family="monospace" fill="rgba(255,255,255,0.4)">AI</text>
-          </g>
-
-          <!-- Bottom-left chip -->
-          <g transform="translate(44,360)" style="animation: floatChip 4.5s ease-in-out 2s infinite;">
-            <rect width="56" height="42" rx="5" fill="#122040" stroke="#3b82f6" stroke-width="1.2"/>
-            <rect x="6" y="6" width="44" height="30" rx="3" fill="#0d1f40"/>
-            <rect x="-5" y="10" width="8" height="3" rx="1" fill="#3b82f6"/>
-            <rect x="-5" y="18" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="-5" y="26" width="8" height="3" rx="1" fill="#3b82f6"/>
-            <rect x="53" y="10" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="53" y="18" width="8" height="3" rx="1" fill="#3b82f6"/>
-            <rect x="53" y="26" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <text x="28" y="24" text-anchor="middle" font-size="7" font-family="monospace" fill="#60d8ff">SoC</text>
-            <text x="28" y="33" text-anchor="middle" font-size="5" font-family="monospace" fill="rgba(255,255,255,0.4)">Edge</text>
-          </g>
-
-          <!-- Bottom-right chip -->
-          <g transform="translate(370,370)" style="animation: floatChip 3.8s ease-in-out 0.7s infinite;">
-            <rect width="56" height="42" rx="5" fill="#122040" stroke="#2563eb" stroke-width="1.2"/>
-            <rect x="6" y="6" width="44" height="30" rx="3" fill="#0d1f40"/>
-            <rect x="-5" y="10" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="-5" y="18" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="-5" y="26" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="53" y="10" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <rect x="53" y="18" width="8" height="3" rx="1" fill="#2563eb"/>
-            <rect x="53" y="26" width="8" height="3" rx="1" fill="#06b6d4"/>
-            <text x="28" y="24" text-anchor="middle" font-size="7" font-family="monospace" fill="#60d8ff">DSP</text>
-            <text x="28" y="33" text-anchor="middle" font-size="5" font-family="monospace" fill="rgba(255,255,255,0.4)">Cloud</text>
-          </g>
-
-          <!-- ── DATA FLOW LINES from chips to head ── -->
-          <!-- Left chip to head -->
-          <path d="M108,111 L155,150" fill="none" stroke="url(#circuitGrad)" stroke-width="1.5"
-                stroke-dasharray="300" style="animation: dataFlow 3s ease-in-out 0s infinite;"/>
-          <!-- Right chip to head -->
-          <path d="M360,96 L325,140" fill="none" stroke="url(#circuitGrad)" stroke-width="1.5"
-                stroke-dasharray="300" style="animation: dataFlow 3s ease-in-out 0.8s infinite;"/>
-          <!-- Bottom-left to body -->
-          <path d="M100,375 L180,350" fill="none" stroke="url(#circuitGrad)" stroke-width="1.5"
-                stroke-dasharray="300" style="animation: dataFlow 3.5s ease-in-out 1.5s infinite;"/>
-          <!-- Bottom-right to body -->
-          <path d="M370,385 L310,355" fill="none" stroke="url(#circuitGrad)" stroke-width="1.5"
-                stroke-dasharray="300" style="animation: dataFlow 3.5s ease-in-out 0.4s infinite;"/>
-
-          <!-- ── ROBOT HEAD ── -->
-          <!-- Neck -->
-          <rect x="215" y="270" width="50" height="30" rx="6" fill="url(#bodyGrad)" stroke="rgba(37,99,235,0.4)" stroke-width="1"/>
-          <!-- Neck segments -->
-          <rect x="220" y="275" width="40" height="5" rx="2" fill="rgba(37,99,235,0.3)"/>
-          <rect x="220" y="284" width="40" height="5" rx="2" fill="rgba(37,99,235,0.3)"/>
-          <rect x="220" y="293" width="40" height="5" rx="2" fill="rgba(37,99,235,0.3)"/>
-
-          <!-- Head body -->
-          <rect x="155" y="80" width="170" height="200" rx="28" fill="url(#headGrad)" stroke="rgba(37,99,235,0.5)" stroke-width="1.5"/>
-
-          <!-- Scan line effect inside head -->
-          <g clip-path="url(#headClip)">
-            <rect x="155" y="80" width="170" height="4" fill="rgba(6,182,212,0.4)" style="animation: scanLine 4s ease-in-out 0s infinite;"/>
-          </g>
-
-          <!-- Head top antenna -->
-          <rect x="235" y="56" width="10" height="28" rx="3" fill="#162d5e" stroke="rgba(37,99,235,0.5)" stroke-width="1"/>
-          <circle cx="240" cy="50" r="7" fill="url(#ballGrad2)" filter="url(#glow)" style="animation: pulsate 2s ease infinite;"/>
-          <!-- Signal rings from antenna -->
-          <circle cx="240" cy="50" r="8" fill="none" stroke="#06b6d4" stroke-width="1.5" style="animation: signalRing 2s ease-out 0s infinite;"/>
-          <circle cx="240" cy="50" r="8" fill="none" stroke="#06b6d4" stroke-width="1.5" style="animation: signalRing 2s ease-out 0.7s infinite;"/>
-          <circle cx="240" cy="50" r="8" fill="none" stroke="#06b6d4" stroke-width="1.5" style="animation: signalRing 2s ease-out 1.4s infinite;"/>
-
-          <!-- Head side ear-panels -->
-          <rect x="137" y="120" width="20" height="60" rx="6" fill="#0f2040" stroke="rgba(37,99,235,0.4)" stroke-width="1"/>
-          <rect x="141" y="128" width="12" height="8"  rx="2" fill="rgba(37,99,235,0.5)"/>
-          <rect x="141" y="140" width="12" height="8"  rx="2" fill="rgba(6,182,212,0.5)"/>
-          <rect x="141" y="152" width="12" height="8"  rx="2" fill="rgba(37,99,235,0.5)"/>
-
-          <rect x="323" y="120" width="20" height="60" rx="6" fill="#0f2040" stroke="rgba(37,99,235,0.4)" stroke-width="1"/>
-          <rect x="327" y="128" width="12" height="8"  rx="2" fill="rgba(6,182,212,0.5)"/>
-          <rect x="327" y="140" width="12" height="8"  rx="2" fill="rgba(37,99,235,0.5)"/>
-          <rect x="327" y="152" width="12" height="8"  rx="2" fill="rgba(6,182,212,0.5)"/>
-
-          <!-- Face visor / screen area -->
-          <rect x="172" y="100" width="136" height="110" rx="18" fill="#071222" stroke="rgba(37,99,235,0.35)" stroke-width="1"/>
-
-          <!-- ── EYES ── -->
-          <!-- Left eye -->
-          <g filter="url(#glow)">
-            <ellipse cx="210" cy="148" rx="20" ry="14" fill="#071a38"/>
-            <ellipse cx="210" cy="148" rx="14" ry="9"  fill="url(#eyeGrad)" style="animation: eyeGlow 3s ease-in-out 0s infinite;"/>
-            <ellipse cx="210" cy="148" rx="7"  ry="5"  fill="#000a1a"/>
-            <circle  cx="214" cy="145" r="2.5" fill="white" opacity="0.8"/>
-            <!-- Eyelid blink -->
-            <ellipse cx="210" cy="148" rx="20" ry="0" fill="#071222" style="animation: blink 5s ease-in-out 2s infinite; transform-origin: 210px 148px;">
-              <animate attributeName="ry" values="0;14;0" dur="0.4s" begin="2s;7s;12s" fill="freeze"/>
-            </ellipse>
-          </g>
-          <!-- Right eye -->
-          <g filter="url(#glow)">
-            <ellipse cx="270" cy="148" rx="20" ry="14" fill="#071a38"/>
-            <ellipse cx="270" cy="148" rx="14" ry="9"  fill="url(#eyeGrad)" style="animation: eyeGlow 3s ease-in-out 0.5s infinite;"/>
-            <ellipse cx="270" cy="148" rx="7"  ry="5"  fill="#000a1a"/>
-            <circle  cx="274" cy="145" r="2.5" fill="white" opacity="0.8"/>
-            <ellipse cx="270" cy="148" rx="20" ry="0" fill="#071222">
-              <animate attributeName="ry" values="0;14;0" dur="0.4s" begin="2s;7s;12s" fill="freeze"/>
-            </ellipse>
-          </g>
-
-          <!-- ── MOUTH / DATA DISPLAY PANEL ── -->
-          <rect x="195" y="176" width="90" height="22" rx="8" fill="#071222" stroke="rgba(6,182,212,0.4)" stroke-width="1"/>
-          <!-- Animated EQ bars in mouth -->
-          <rect x="203" y="182" width="5" height="10" rx="1" fill="#2563eb" style="animation: pulsate 0.6s ease 0s infinite;"/>
-          <rect x="212" y="179" width="5" height="13" rx="1" fill="#06b6d4" style="animation: pulsate 0.5s ease 0.1s infinite;"/>
-          <rect x="221" y="183" width="5" height="9"  rx="1" fill="#2563eb" style="animation: pulsate 0.7s ease 0.2s infinite;"/>
-          <rect x="230" y="180" width="5" height="12" rx="1" fill="#60d8ff" style="animation: pulsate 0.4s ease 0.3s infinite;"/>
-          <rect x="239" y="182" width="5" height="10" rx="1" fill="#2563eb" style="animation: pulsate 0.65s ease 0.15s infinite;"/>
-          <rect x="248" y="179" width="5" height="13" rx="1" fill="#06b6d4" style="animation: pulsate 0.55s ease 0.25s infinite;"/>
-          <rect x="257" y="183" width="5" height="9"  rx="1" fill="#3b82f6" style="animation: pulsate 0.75s ease 0.05s infinite;"/>
-          <rect x="266" y="181" width="5" height="11" rx="1" fill="#06b6d4" style="animation: pulsate 0.5s ease 0.35s infinite;"/>
-          <rect x="275" y="183" width="5" height="9"  rx="1" fill="#2563eb" style="animation: pulsate 0.6s ease 0.1s infinite;"/>
-
-          <!-- Circuit traces on head -->
-          <path d="M172,215 L200,215 L200,230 L220,230" fill="none" stroke="rgba(37,99,235,0.4)" stroke-width="1" stroke-dasharray="3 3"/>
-          <path d="M308,215 L280,215 L280,230 L260,230" fill="none" stroke="rgba(6,182,212,0.4)" stroke-width="1" stroke-dasharray="3 3"/>
-          <circle cx="200" cy="215" r="2.5" fill="#2563eb" style="animation: pulsate 1.5s ease 0s infinite;"/>
-          <circle cx="280" cy="215" r="2.5" fill="#06b6d4" style="animation: pulsate 1.5s ease 0.5s infinite;"/>
-
-          <!-- ── BODY / TORSO ── -->
-          <rect x="170" y="300" width="140" height="130" rx="22" fill="url(#bodyGrad)" stroke="rgba(37,99,235,0.45)" stroke-width="1.5"/>
-
-          <!-- Chest panel -->
-          <rect x="190" y="316" width="100" height="70" rx="12" fill="#071222" stroke="rgba(37,99,235,0.3)" stroke-width="1"/>
-
-          <!-- Central power core -->
-          <circle cx="240" cy="345" r="18" fill="#071a38" stroke="rgba(37,99,235,0.5)" stroke-width="1.5"/>
-          <circle cx="240" cy="345" r="12" fill="rgba(37,99,235,0.15)" stroke="rgba(37,99,235,0.6)" stroke-width="1"
-                  style="animation: pulsateLarge 2s ease-in-out infinite;"/>
-          <circle cx="240" cy="345" r="7"  fill="url(#eyeGrad)" filter="url(#softGlow)"
-                  style="animation: eyeGlow 2s ease-in-out infinite;"/>
-
-          <!-- Chest data indicators -->
-          <rect x="196" y="370" width="20" height="6" rx="3" fill="rgba(37,99,235,0.6)" style="animation: pulsateLarge 1.2s ease 0s infinite;"/>
-          <rect x="220" y="370" width="20" height="6" rx="3" fill="rgba(6,182,212,0.6)"  style="animation: pulsateLarge 1.2s ease 0.3s infinite;"/>
-          <rect x="244" y="370" width="20" height="6" rx="3" fill="rgba(37,99,235,0.6)"  style="animation: pulsateLarge 1.2s ease 0.6s infinite;"/>
-          <rect x="268" y="370" width="16" height="6" rx="3" fill="rgba(6,182,212,0.6)"  style="animation: pulsateLarge 1.2s ease 0.9s infinite;"/>
-
-          <!-- Shoulder details -->
-          <rect x="155" y="306" width="18" height="50" rx="7" fill="#0f2040" stroke="rgba(37,99,235,0.4)" stroke-width="1"/>
-          <rect x="307" y="306" width="18" height="50" rx="7" fill="#0f2040" stroke="rgba(37,99,235,0.4)" stroke-width="1"/>
-
-          <!-- ── FLOATING DATA NODES ── -->
-          <circle cx="118" cy="230" r="8" fill="none" stroke="#2563eb" stroke-width="1.5" style="animation: pulsate 2.5s ease 0s infinite;"/>
-          <circle cx="118" cy="230" r="4" fill="#2563eb" style="animation: pulsate 2.5s ease 0s infinite;"/>
-          <line x1="126" y1="230" x2="153" y2="195" stroke="rgba(37,99,235,0.4)" stroke-width="1" stroke-dasharray="3 4"/>
-
-          <circle cx="362" cy="220" r="8" fill="none" stroke="#06b6d4" stroke-width="1.5" style="animation: pulsate 2s ease 1s infinite;"/>
-          <circle cx="362" cy="220" r="4" fill="#06b6d4" style="animation: pulsate 2s ease 1s infinite;"/>
-          <line x1="354" y1="220" x2="327" y2="188" stroke="rgba(6,182,212,0.4)" stroke-width="1" stroke-dasharray="3 4"/>
-
-          <!-- Wi-Fi / signal arcs bottom centre -->
-          <path d="M220,460 Q240,440 260,460" fill="none" stroke="rgba(37,99,235,0.5)" stroke-width="1.5"
-                style="animation: pulsateLarge 2s ease 0s infinite;"/>
-          <path d="M208,470 Q240,444 272,470" fill="none" stroke="rgba(37,99,235,0.35)" stroke-width="1.5"
-                style="animation: pulsateLarge 2s ease 0.4s infinite;"/>
-          <path d="M196,480 Q240,448 284,480" fill="none" stroke="rgba(37,99,235,0.2)" stroke-width="1.5"
-                style="animation: pulsateLarge 2s ease 0.8s infinite;"/>
-          <circle cx="240" cy="456" r="4" fill="#06b6d4" style="animation: pulsate 2s ease infinite;"/>
-
-          <!-- Label tags -->
-          <rect x="55" y="200" width="58" height="18" rx="9" fill="rgba(37,99,235,0.2)" stroke="rgba(37,99,235,0.5)" stroke-width="1"/>
-          <text x="84" y="212" text-anchor="middle" font-size="8" font-family="'Inter',sans-serif" fill="#60d8ff" font-weight="600">AZURE · AWS</text>
-
-          <rect x="365" y="290" width="62" height="18" rx="9" fill="rgba(6,182,212,0.15)" stroke="rgba(6,182,212,0.45)" stroke-width="1"/>
-          <text x="396" y="302" text-anchor="middle" font-size="8" font-family="'Inter',sans-serif" fill="#60d8ff" font-weight="600">AI · ML · DATA</text>
-
-          <rect x="55" y="430" width="66" height="18" rx="9" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.45)" stroke-width="1"/>
-          <text x="88" y="442" text-anchor="middle" font-size="8" font-family="'Inter',sans-serif" fill="#a5b4fc" font-weight="600">DevSecOps</text>
-
-          <rect x="358" y="430" width="68" height="18" rx="9" fill="rgba(37,99,235,0.15)" stroke="rgba(37,99,235,0.45)" stroke-width="1"/>
-          <text x="392" y="442" text-anchor="middle" font-size="8" font-family="'Inter',sans-serif" fill="#60d8ff" font-weight="600">IoT · Edge</text>
-        </svg>
+      <h1 class="hero-title">Empowering Insight</h1>
+      <h2 class="hero-title-line2">with <span style="font-style:italic;">Nexio</span></h2>
+      <p class="hero-tagline">Enterprise-grade technology solutions for the connected world.</p>
+      <div class="hero-typed-wrap">
+        <span class="hero-typed-prefix">Specialists in </span><span id="heroTyped"></span>
+      </div>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary"><i class="fa-solid fa-rocket"></i> Explore Solutions</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
       </div>
     </div>
-  </section>
-
-  <!-- ===== TICKER ===== -->
-  <div class="ticker-wrap">
-    <div class="ticker">
-      <span class="ticker-item"><i class="fas fa-circle"></i> IoT Software Services <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> Azure Cloud Solutions <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> AWS Infrastructure <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> GCP Data & AI <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> DevSecOps <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> Infra Automation <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> Hardware Integration <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> AI & Machine Learning <span class="ticker-sep">★</span></span>
-      <!-- duplicate for seamless loop -->
-      <span class="ticker-item"><i class="fas fa-circle"></i> IoT Software Services <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> Azure Cloud Solutions <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> AWS Infrastructure <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> GCP Data & AI <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> DevSecOps <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> Infra Automation <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> Hardware Integration <span class="ticker-sep">★</span></span>
-      <span class="ticker-item"><i class="fas fa-circle"></i> AI & Machine Learning <span class="ticker-sep">★</span></span>
+    <div class="hero-right">
+      <div class="globe-wrap">
+        <canvas id="globeCanvas" width="440" height="440"></canvas>
+        <div class="globe-badge gb-1"><i class="fa-solid fa-microchip"></i>IoT Platform</div>
+        <div class="globe-badge gb-2"><i class="fa-solid fa-cloud"></i>Cloud Native</div>
+        <div class="globe-badge gb-3"><i class="fa-solid fa-brain"></i>AI / ML</div>
+        <div class="globe-badge gb-4"><i class="fa-solid fa-shield-halved"></i>DevSecOps</div>
+      </div>
     </div>
   </div>
+  <div class="hero-scroll">
+    <div class="scroll-mouse"></div>
+    <span>Scroll Down</span>
+  </div>
+</section>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about" class="section-pad">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-img-wrap reveal-left">
-          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80" alt="Team at Axopian" />
-          <div class="about-img-badge">
-            <div class="num">5+</div>
-            <small>Years of Excellence</small>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item"><i class="fa-solid fa-microchip"></i>IoT Hardware Solutions</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-code-branch"></i>IoT Software & Platform</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-brands fa-microsoft"></i>Microsoft Azure</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-brands fa-google"></i>Google Cloud Platform</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-brands fa-aws"></i>Amazon Web Services</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-chart-bar"></i>Data & Analytics</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-brain"></i>AI & Machine Learning</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i>DevSecOps</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-server"></i>Infra Automation</div>
+    <div class="ticker-dot"></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><i class="fa-solid fa-microchip"></i>IoT Hardware Solutions</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-code-branch"></i>IoT Software & Platform</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-brands fa-microsoft"></i>Microsoft Azure</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-brands fa-google"></i>Google Cloud Platform</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-brands fa-aws"></i>Amazon Web Services</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-chart-bar"></i>Data & Analytics</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-brain"></i>AI & Machine Learning</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i>DevSecOps</div>
+    <div class="ticker-dot"></div>
+    <div class="ticker-item"><i class="fa-solid fa-server"></i>Infra Automation</div>
+    <div class="ticker-dot"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section-pad">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="reveal-left">
+        <p class="about-label">Who We Are</p>
+        <h2 class="about-title">Bridging the Physical & Digital Worlds</h2>
+        <p class="about-text">Axopian Consulting is an IT services company headquartered in Kochi, India with a presence in Singapore. We deliver cutting-edge IoT-based software &amp; hardware solutions alongside hyper-scaler cloud services — helping enterprises transform data into insight and insight into action.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="about-feature-text">
+              <h4>End-to-End IoT Solutions</h4>
+              <p>From sensor hardware to cloud-connected dashboards — we own the full stack.</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-infinity"></i></div>
+            <div class="about-feature-text">
+              <h4>Cloud-First Architecture</h4>
+              <p>Azure, GCP, and AWS expertise for scalable, resilient enterprise infrastructure.</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon"><i class="fa-solid fa-earth-asia"></i></div>
+            <div class="about-feature-text">
+              <h4>Global Delivery, Local Expertise</h4>
+              <p>Offices in Kochi &amp; Singapore serving clients across Asia and beyond.</p>
+            </div>
           </div>
         </div>
-        <div class="about-text reveal-right">
-          <div class="section-badge">About Us</div>
-          <h2 class="section-title">Bridging the Gap Between <span class="gradient-text">Technology & Business</span></h2>
-          <p>Axopian Consulting Private Limited is a next-generation IT services company specializing in IoT-based software and hardware solutions, complemented by deep expertise in cloud hyperscalers. We deliver transformative digital solutions that enable businesses to innovate faster and operate smarter.</p>
-          <p>With offices in Kochi, Kerala and Singapore, we serve clients across Asia and beyond — bringing global perspective with regional expertise to every engagement.</p>
-          <div class="about-pillars">
-            <div class="pillar">
-              <div class="pillar-icon"><i class="fas fa-bullseye"></i></div>
-              <div class="pillar-text">
-                <h4>Our Mission</h4>
-                <p>Enable intelligent, connected enterprises through innovative technology</p>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-icon"><i class="fas fa-eye"></i></div>
-              <div class="pillar-text">
-                <h4>Our Vision</h4>
-                <p>To be Asia's leading IoT & cloud transformation partner</p>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-icon"><i class="fas fa-users"></i></div>
-              <div class="pillar-text">
-                <h4>Our People</h4>
-                <p>Expert engineers and consultants passionate about innovation</p>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-icon"><i class="fas fa-handshake"></i></div>
-              <div class="pillar-text">
-                <h4>Our Values</h4>
-                <p>Integrity, excellence, and client-first delivery philosophy</p>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="about-stats reveal-right">
+        <div class="about-stat-card reveal delay-1">
+          <div class="stat-icon"><i class="fa-solid fa-rocket"></i></div>
+          <span class="stat-num" data-target="50">0</span><span class="stat-num" style="font-size:1.8rem">+</span>
+          <p class="stat-label">Projects Delivered</p>
+        </div>
+        <div class="about-stat-card reveal delay-2">
+          <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+          <span class="stat-num" data-target="30">0</span><span class="stat-num" style="font-size:1.8rem">+</span>
+          <p class="stat-label">Happy Clients</p>
+        </div>
+        <div class="about-stat-card reveal delay-3">
+          <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <span class="stat-num" data-target="5">0</span><span class="stat-num" style="font-size:1.8rem">+</span>
+          <p class="stat-label">Years of Excellence</p>
+        </div>
+        <div class="about-stat-card reveal delay-4">
+          <div class="stat-icon"><i class="fa-solid fa-globe"></i></div>
+          <span class="stat-num" data-target="2">0</span>
+          <p class="stat-label">Global Offices</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SERVICES ===== -->
-  <section id="services" class="section-pad">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">What We Do</div>
-        <h2 class="section-title" style="color:white">Our <span class="gradient-text">Core Services</span></h2>
-        <p class="section-desc" style="color:rgba(255,255,255,0.55)">End-to-end technology services designed to accelerate digital transformation across industries.</p>
+<!-- SERVICES -->
+<section id="services" class="section-pad">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge-label light">What We Do</span>
+      <h2 class="section-title light">Our <span class="hl">Core Services</span></h2>
+      <p class="section-desc light">Comprehensive technology services that power your digital transformation journey — from connected devices to cloud-scale intelligence.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal delay-1">
+        <div class="svc-icon-wrap"><i class="fa-solid fa-microchip"></i></div>
+        <h3 class="svc-title">IoT Hardware Solutions</h3>
+        <p class="svc-desc">Custom embedded systems, sensor arrays, edge computing devices, and industrial IoT hardware designed for reliability in demanding environments.</p>
+        <a href="#iot" class="svc-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-microchip"></i></div>
-          <h3>IoT Software & Hardware</h3>
-          <p>Complete IoT ecosystem development — from edge device firmware to cloud-connected dashboards and real-time analytics platforms.</p>
-          <div class="service-tags">
-            <span class="tag">Edge Computing</span>
-            <span class="tag">MQTT/AMQP</span>
-            <span class="tag">Firmware Dev</span>
-            <span class="tag">IoT Analytics</span>
-          </div>
-          <i class="fas fa-arrow-right service-arrow"></i>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-brain"></i></div>
-          <h3>Data & AI</h3>
-          <p>Unlock the power of your data with advanced analytics, ML model development, and AI-driven insights that transform decision-making.</p>
-          <div class="service-tags">
-            <span class="tag">ML/AI</span>
-            <span class="tag">Data Engineering</span>
-            <span class="tag">Predictive Analytics</span>
-            <span class="tag">LLM Integration</span>
-          </div>
-          <i class="fas fa-arrow-right service-arrow"></i>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-cloud"></i></div>
-          <h3>Cloud Solutions</h3>
-          <p>Multi-cloud strategy, architecture, migration, and managed services across Azure, GCP & AWS tailored to your business objectives.</p>
-          <div class="service-tags">
-            <span class="tag">Azure</span>
-            <span class="tag">AWS</span>
-            <span class="tag">GCP</span>
-            <span class="tag">Cloud Migration</span>
-          </div>
-          <i class="fas fa-arrow-right service-arrow"></i>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-shield-halved"></i></div>
-          <h3>DevSecOps</h3>
-          <p>Integrate security into every phase of your DevOps pipeline with automated compliance, vulnerability scanning, and secure CI/CD.</p>
-          <div class="service-tags">
-            <span class="tag">CI/CD</span>
-            <span class="tag">Security Automation</span>
-            <span class="tag">Compliance</span>
-            <span class="tag">SAST/DAST</span>
-          </div>
-          <i class="fas fa-arrow-right service-arrow"></i>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-robot"></i></div>
-          <h3>Infra Automation</h3>
-          <p>Eliminate manual operations with IaC, configuration management, and intelligent automation frameworks at enterprise scale.</p>
-          <div class="service-tags">
-            <span class="tag">Terraform</span>
-            <span class="tag">Kubernetes</span>
-            <span class="tag">Ansible</span>
-            <span class="tag">GitOps</span>
-          </div>
-          <i class="fas fa-arrow-right service-arrow"></i>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon"><i class="fas fa-sitemap"></i></div>
-          <h3>Digital Transformation</h3>
-          <p>End-to-end consulting and implementation to modernize legacy systems, digitize processes, and build future-ready architectures.</p>
-          <div class="service-tags">
-            <span class="tag">Architecture Review</span>
-            <span class="tag">Modernization</span>
-            <span class="tag">API Strategy</span>
-            <span class="tag">Microservices</span>
-          </div>
-          <i class="fas fa-arrow-right service-arrow"></i>
-        </div>
+      <div class="svc-card reveal delay-2">
+        <div class="svc-icon-wrap"><i class="fa-solid fa-code-branch"></i></div>
+        <h3 class="svc-title">IoT Software & Platform</h3>
+        <p class="svc-desc">End-to-end IoT platforms, device management, real-time data pipelines, edge analytics, and cloud-connected dashboards for complete visibility.</p>
+        <a href="#iot" class="svc-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="svc-card reveal delay-3">
+        <div class="svc-icon-wrap"><i class="fa-solid fa-cloud"></i></div>
+        <h3 class="svc-title">Cloud Infrastructure</h3>
+        <p class="svc-desc">Architecture, migration, and managed services on Azure, GCP, and AWS — built for performance, security, and cost efficiency at scale.</p>
+        <a href="#cloud" class="svc-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="svc-card reveal delay-4">
+        <div class="svc-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+        <h3 class="svc-title">Data & Analytics</h3>
+        <p class="svc-desc">Data warehousing, ETL pipelines, BI dashboards, and advanced analytics that turn raw data into actionable business intelligence.</p>
+        <a href="#contact" class="svc-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="svc-card reveal delay-5">
+        <div class="svc-icon-wrap"><i class="fa-solid fa-brain"></i></div>
+        <h3 class="svc-title">AI & Machine Learning</h3>
+        <p class="svc-desc">Predictive models, computer vision, NLP, and AI-driven automation solutions that bring machine intelligence to your core business processes.</p>
+        <a href="#contact" class="svc-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="svc-card reveal delay-6">
+        <div class="svc-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="svc-title">DevSecOps & Automation</h3>
+        <p class="svc-desc">CI/CD pipelines, infrastructure as code, security-embedded DevOps workflows, and Kubernetes orchestration for rapid, secure deployments.</p>
+        <a href="#contact" class="svc-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== CLOUD ===== -->
-  <section id="cloud">
-    <div class="container">
-      <div class="cloud-grid">
-        <div class="reveal-left">
-          <div class="section-badge">Cloud Hyperscalers</div>
-          <h2 class="section-title">Multi-Cloud Expertise Across <span class="gradient-text">Leading Platforms</span></h2>
-          <p style="color:var(--gray);line-height:1.8;margin-bottom:2rem;">We architect, deploy, and manage cloud-native solutions on the world's leading platforms — ensuring security, scalability, and cost efficiency at every layer.</p>
-          <div class="cloud-platforms">
-            <div class="cloud-platform">
-              <div class="cloud-platform-icon azure-icon"><i class="fab fa-microsoft"></i></div>
-              <h4>Azure</h4>
-              <small>Microsoft Cloud</small>
-            </div>
-            <div class="cloud-platform">
-              <div class="cloud-platform-icon aws-icon"><i class="fab fa-aws"></i></div>
-              <h4>AWS</h4>
-              <small>Amazon Web Services</small>
-            </div>
-            <div class="cloud-platform">
-              <div class="cloud-platform-icon gcp-icon"><i class="fab fa-google"></i></div>
-              <h4>GCP</h4>
-              <small>Google Cloud</small>
-            </div>
-          </div>
+<!-- CLOUD -->
+<section id="cloud" class="section-pad">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge-label">Cloud Expertise</span>
+      <h2 class="section-title">Hyper-Scaler <span class="hl">Cloud Platforms</span></h2>
+      <p class="section-desc">Certified expertise across the world's leading cloud platforms — helping you choose, migrate, and optimize for your unique business needs.</p>
+    </div>
+    <div class="cloud-grid">
+      <div class="cloud-card cloud-azure reveal delay-1">
+        <div class="cloud-logo-wrap">
+          <div class="cloud-logo-icon"><i class="fa-brands fa-microsoft"></i></div>
+          <h3 class="cloud-name">Microsoft Azure</h3>
+          <p class="cloud-tagline">Enterprise Cloud &amp; AI Platform</p>
         </div>
-        <div class="cloud-focus reveal-right">
-          <div class="cloud-focus-item">
-            <i class="fas fa-database"></i>
-            <div>
-              <h4>Data & Analytics</h4>
-              <p>Modern data platforms, lakehouses, and real-time streaming pipelines on your cloud of choice.</p>
-            </div>
-          </div>
-          <div class="cloud-focus-item">
-            <i class="fas fa-brain"></i>
-            <div>
-              <h4>AI & Machine Learning</h4>
-              <p>Deploy and scale AI/ML workloads with managed ML platforms, AutoML, and LLM fine-tuning.</p>
-            </div>
-          </div>
-          <div class="cloud-focus-item">
-            <i class="fas fa-server"></i>
-            <div>
-              <h4>Infra Automation</h4>
-              <p>IaC-driven provisioning, auto-scaling, and self-healing infrastructure across hybrid environments.</p>
-            </div>
-          </div>
-          <div class="cloud-focus-item">
-            <i class="fas fa-lock"></i>
-            <div>
-              <h4>DevSecOps</h4>
-              <p>Shift-left security, policy-as-code, and zero-trust architectures baked into your delivery pipeline.</p>
-            </div>
-          </div>
+        <ul class="cloud-features">
+          <li><i class="fa-solid fa-check-circle"></i>Azure IoT Hub &amp; Edge Computing</li>
+          <li><i class="fa-solid fa-check-circle"></i>Azure Synapse &amp; Data Factory</li>
+          <li><i class="fa-solid fa-check-circle"></i>Azure DevOps &amp; Pipelines</li>
+          <li><i class="fa-solid fa-check-circle"></i>Azure AI / Cognitive Services</li>
+          <li><i class="fa-solid fa-check-circle"></i>Azure Kubernetes Service (AKS)</li>
+        </ul>
+      </div>
+      <div class="cloud-card cloud-gcp reveal delay-2">
+        <div class="cloud-logo-wrap">
+          <div class="cloud-logo-icon"><i class="fa-brands fa-google"></i></div>
+          <h3 class="cloud-name">Google Cloud (GCC)</h3>
+          <p class="cloud-tagline">Data & AI-Powered Cloud</p>
         </div>
+        <ul class="cloud-features">
+          <li><i class="fa-solid fa-check-circle"></i>BigQuery &amp; Dataflow Analytics</li>
+          <li><i class="fa-solid fa-check-circle"></i>Google Cloud IoT Core</li>
+          <li><i class="fa-solid fa-check-circle"></i>Vertex AI &amp; ML Pipelines</li>
+          <li><i class="fa-solid fa-check-circle"></i>GKE &amp; Cloud Run</li>
+          <li><i class="fa-solid fa-check-circle"></i>Firebase &amp; App Engine</li>
+        </ul>
+      </div>
+      <div class="cloud-card cloud-aws reveal delay-3">
+        <div class="cloud-logo-wrap">
+          <div class="cloud-logo-icon"><i class="fa-brands fa-aws"></i></div>
+          <h3 class="cloud-name">Amazon Web Services</h3>
+          <p class="cloud-tagline">The World's Most Comprehensive Cloud</p>
+        </div>
+        <ul class="cloud-features">
+          <li><i class="fa-solid fa-check-circle"></i>AWS IoT Greengrass &amp; Core</li>
+          <li><i class="fa-solid fa-check-circle"></i>S3, Redshift &amp; Glue (Data Lake)</li>
+          <li><i class="fa-solid fa-check-circle"></i>SageMaker &amp; Bedrock (AI)</li>
+          <li><i class="fa-solid fa-check-circle"></i>EKS &amp; Lambda Serverless</li>
+          <li><i class="fa-solid fa-check-circle"></i>CodePipeline &amp; CodeDeploy</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== IOT ===== -->
-  <section id="iot">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">IoT Expertise</div>
-        <h2 class="section-title">Connected Solutions for the <span class="gradient-text">Intelligent Enterprise</span></h2>
-        <p class="section-desc">From sensor to cloud — we design, develop and deploy complete IoT ecosystems that deliver real business value.</p>
+<!-- IOT -->
+<section id="iot" class="section-pad">
+  <div class="section-inner">
+    <div class="iot-grid">
+      <div class="iot-visual reveal-left">
+        <div class="iot-ring iot-ring-1"></div>
+        <div class="iot-ring iot-ring-2"></div>
+        <div class="iot-ring iot-ring-3"></div>
+        <div class="iot-center"><i class="fa-solid fa-microchip"></i></div>
+        <!-- IoT nodes positioned via inline style -->
+        <div class="iot-node" style="transform:translate(-50%,-50%) translate(-140px,-80px)"><i class="fa-solid fa-temperature-high"></i><span class="iot-node-label">Sensor</span></div>
+        <div class="iot-node" style="transform:translate(-50%,-50%) translate(140px,-80px)"><i class="fa-solid fa-wifi"></i><span class="iot-node-label">Wireless</span></div>
+        <div class="iot-node" style="transform:translate(-50%,-50%) translate(-160px,40px)"><i class="fa-solid fa-bolt"></i><span class="iot-node-label">Power</span></div>
+        <div class="iot-node" style="transform:translate(-50%,-50%) translate(160px,40px)"><i class="fa-solid fa-database"></i><span class="iot-node-label">Data</span></div>
+        <div class="iot-node" style="transform:translate(-50%,-50%) translate(0,-170px)"><i class="fa-solid fa-cloud-upload-alt"></i><span class="iot-node-label">Cloud</span></div>
+        <div class="iot-node" style="transform:translate(-50%,-50%) translate(0,170px)"><i class="fa-solid fa-chart-line"></i><span class="iot-node-label">Analytics</span></div>
       </div>
-      <div class="iot-visual">
-        <div class="iot-img-wrap reveal-left">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="IoT Hardware" />
-          <div class="iot-img-overlay"></div>
-        </div>
-        <div class="iot-features reveal-right">
-          <div class="iot-feature">
-            <div class="iot-feature-num">01</div>
-            <div>
-              <h4>Hardware Design & Prototyping</h4>
-              <p>Custom PCB design, sensor integration, and rapid prototyping of IoT edge devices for industrial and commercial applications.</p>
-            </div>
-          </div>
-          <div class="iot-feature">
-            <div class="iot-feature-num">02</div>
-            <div>
-              <h4>Firmware & Embedded Software</h4>
-              <p>Reliable, low-power firmware development for microcontrollers with OTA update capabilities and secure boot.</p>
-            </div>
-          </div>
-          <div class="iot-feature">
-            <div class="iot-feature-num">03</div>
-            <div>
-              <h4>IoT Platform & Connectivity</h4>
-              <p>Cloud-connected IoT platforms with MQTT, HTTP, CoAP protocols — supporting Azure IoT Hub, AWS IoT Core, and GCP IoT.</p>
-            </div>
-          </div>
-          <div class="iot-feature">
-            <div class="iot-feature-num">04</div>
-            <div>
-              <h4>Real-Time Analytics & Dashboards</h4>
-              <p>Live monitoring dashboards, alerting systems, and predictive maintenance solutions powered by time-series analytics.</p>
-            </div>
-          </div>
-          <div class="iot-feature">
-            <div class="iot-feature-num">05</div>
-            <div>
-              <h4>IoT Security & Compliance</h4>
-              <p>End-to-end device authentication, encrypted communications, and compliance with industry standards (IEC 62443, OWASP IoT).</p>
-            </div>
-          </div>
-        </div>
+      <div class="iot-text reveal-right">
+        <span class="section-badge-label">IoT Solutions</span>
+        <h2 class="iot-title">Connected Devices. <span class="hl">Intelligent Systems.</span></h2>
+        <p class="iot-desc">We design and deploy complete IoT ecosystems — from ruggedized edge hardware to cloud-scale analytics platforms — enabling real-time monitoring, predictive maintenance, and smart automation for industries worldwide.</p>
+        <ul class="iot-list">
+          <li><i class="fa-solid fa-circle-check"></i><div><span>Edge Computing & Gateway Solutions</span><br/>Process data at the source for ultra-low latency decisions.</div></li>
+          <li><i class="fa-solid fa-circle-check"></i><div><span>Real-Time Device Monitoring</span><br/>Unified dashboards with live telemetry, alerts, and remote control.</div></li>
+          <li><i class="fa-solid fa-circle-check"></i><div><span>Predictive Maintenance AI</span><br/>ML-powered anomaly detection to prevent downtime before it happens.</div></li>
+          <li><i class="fa-solid fa-circle-check"></i><div><span>Secure OTA Firmware Updates</span><br/>Fleet-scale device management with encrypted over-the-air updates.</div></li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== HOW WE WORK ===== -->
-  <section id="why" class="section-pad" style="background:var(--navy);">
-    <style>
-      /* ── HOW WE WORK ── */
-      .hww-header .section-badge { background:rgba(37,99,235,0.2);color:var(--cyan);border-color:rgba(6,182,212,0.3); }
-      .hww-steps {
-        display: grid;
-        grid-template-columns: repeat(4,1fr);
-        gap: 0;
-        position: relative;
-        margin-top: 3.5rem;
-      }
-      /* Animated connector line behind the circles */
-      .hww-steps::before {
-        content: '';
-        position: absolute;
-        top: 44px; left: calc(12.5% + 0px); right: calc(12.5% + 0px);
-        height: 2px;
-        background: linear-gradient(90deg, var(--accent), var(--cyan));
-        z-index: 0;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 1.4s cubic-bezier(0.4,0,0.2,1) 0.3s;
-      }
-      .hww-steps.line-visible::before { transform: scaleX(1); }
+<!-- NEXIO -->
+<section id="nexio" class="section-pad">
+  <div class="section-inner">
+    <div class="nexio-header reveal">
+      <div class="nexio-badge"><span class="nexio-pulse"></span>Plug & Play IoT Platform</div>
+      <h2 class="nexio-title">Meet <span class="nexio-name">Nexio</span> — Connect Everything.</h2>
+      <p class="nexio-sub">A universal IoT platform that onboards any device in minutes, streams real-time telemetry, and turns raw data into measurable business returns.</p>
+    </div>
 
-      .hww-step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 0 1.25rem;
-        position: relative;
-        z-index: 1;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-      }
-      .hww-step.step-visible { opacity: 1; transform: translateY(0); }
-      .hww-step:nth-child(1) { transition-delay: 0.1s; }
-      .hww-step:nth-child(2) { transition-delay: 0.4s; }
-      .hww-step:nth-child(3) { transition-delay: 0.7s; }
-      .hww-step:nth-child(4) { transition-delay: 1.0s; }
+    <div class="nexio-grid">
 
-      /* Circle */
-      .hww-circle {
-        width: 88px; height: 88px;
-        border-radius: 50%;
-        border: 2px solid var(--accent);
-        background: var(--navy-mid);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 2rem;
-        position: relative;
-        transition: background 0.4s, box-shadow 0.4s, transform 0.4s;
-        cursor: default;
-      }
-      .hww-circle::after {
-        content: '';
-        position: absolute;
-        inset: -6px;
-        border-radius: 50%;
-        border: 1px solid rgba(37,99,235,0.2);
-        transition: border-color 0.4s, transform 0.4s;
-      }
-      .hww-step:hover .hww-circle {
-        background: var(--gradient-accent);
-        box-shadow: 0 0 32px rgba(37,99,235,0.5);
-        transform: scale(1.08);
-        border-color: var(--cyan);
-      }
-      .hww-step:hover .hww-circle::after {
-        border-color: rgba(6,182,212,0.4);
-        transform: scale(1.12);
-      }
-      .hww-num {
-        font-family: 'Space Grotesk', sans-serif;
-        font-weight: 700;
-        font-size: 1.35rem;
-        color: var(--cyan);
-        transition: color 0.3s;
-      }
-      .hww-step:hover .hww-num { color: #fff; }
-
-      /* Icon inside circle (small, below number) */
-      .hww-icon {
-        font-size: 0.75rem;
-        color: rgba(255,255,255,0.4);
-        margin-top: 2px;
-        transition: color 0.3s;
-      }
-      .hww-step:hover .hww-icon { color: rgba(255,255,255,0.85); }
-
-      .hww-step h3 {
-        color: #fff;
-        font-size: 1rem;
-        margin-bottom: 0.75rem;
-        transition: color 0.3s;
-      }
-      .hww-step:hover h3 { color: var(--cyan); }
-      .hww-step p {
-        color: rgba(255,255,255,0.52);
-        font-size: 0.855rem;
-        line-height: 1.7;
-      }
-
-      /* Pulse ring animation on active circle */
-      @keyframes hwwPulse {
-        0%   { box-shadow: 0 0 0 0   rgba(37,99,235,0.5); }
-        70%  { box-shadow: 0 0 0 18px rgba(37,99,235,0);   }
-        100% { box-shadow: 0 0 0 0   rgba(37,99,235,0);   }
-      }
-      .hww-step.step-visible .hww-circle { animation: hwwPulse 2s ease 1.2s 2; }
-
-      @media(max-width:900px) {
-        .hww-steps { grid-template-columns: repeat(2,1fr); gap: 3rem 1rem; }
-        .hww-steps::before { display: none; }
-      }
-      @media(max-width:520px) {
-        .hww-steps { grid-template-columns: 1fr; }
-      }
-    </style>
-
-    <div class="container">
-      <div class="section-header hww-header reveal">
-        <div class="section-badge">How We Work</div>
-        <h2 class="section-title" style="color:#fff;">A Proven Path to <span class="gradient-text">Digital Excellence</span></h2>
-        <p class="section-desc" style="color:rgba(255,255,255,0.5);">Our structured engagement model ensures clarity, accountability, and consistent delivery from day one.</p>
+      <!-- Capabilities -->
+      <div class="nexio-cap-card reveal delay-1">
+        <p class="nexio-card-title">Platform Capabilities</p>
+        <div class="nexio-cap-list">
+          <div class="nexio-cap-item">
+            <div class="nexio-cap-icon"><i class="fa-solid fa-plug-circle-bolt"></i></div>
+            <div class="nexio-cap-text"><strong>Zero-Config Onboarding</strong><span>Any device live in under 5 minutes — no custom drivers or SDKs needed.</span></div>
+          </div>
+          <div class="nexio-cap-item">
+            <div class="nexio-cap-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+            <div class="nexio-cap-text"><strong>Multi-Protocol Support</strong><span>MQTT, CoAP, HTTP/S, Modbus, OPC-UA — one platform, any protocol.</span></div>
+          </div>
+          <div class="nexio-cap-item">
+            <div class="nexio-cap-icon"><i class="fa-solid fa-microchip"></i></div>
+            <div class="nexio-cap-text"><strong>Edge AI Processing</strong><span>Run inference at the edge for sub-millisecond decisions without cloud round-trips.</span></div>
+          </div>
+          <div class="nexio-cap-item">
+            <div class="nexio-cap-icon"><i class="fa-solid fa-rotate"></i></div>
+            <div class="nexio-cap-text"><strong>Secure OTA Updates</strong><span>Fleet-wide firmware rollouts with signed packages and instant rollback.</span></div>
+          </div>
+          <div class="nexio-cap-item">
+            <div class="nexio-cap-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="nexio-cap-text"><strong>Predictive Maintenance</strong><span>ML anomaly detection flags failures before they happen — minimising downtime.</span></div>
+          </div>
+          <div class="nexio-cap-item">
+            <div class="nexio-cap-icon"><i class="fa-solid fa-cloud"></i></div>
+            <div class="nexio-cap-text"><strong>Cloud-Agnostic Deployment</strong><span>Deploy on Azure, AWS, GCC or on-prem — no vendor lock-in.</span></div>
+          </div>
+        </div>
       </div>
 
-      <div class="hww-steps" id="hwwSteps">
-        <div class="hww-step">
-          <div class="hww-circle">
-            <div>
-              <div class="hww-num">01</div>
-              <div class="hww-icon"><i class="fas fa-search"></i></div>
-            </div>
-          </div>
-          <h3>Discover &amp; Assess</h3>
-          <p>We deep-dive into your business goals, current systems, and pain points to define the right technology strategy.</p>
+      <!-- Center visual -->
+      <div class="nexio-visual-card reveal delay-2">
+        <div class="nexio-logo-ring">
+          <div class="nexio-logo-disc"><span>N</span></div>
         </div>
+        <div class="nexio-tagline-box">
+          <h3>Nexio IoT Platform</h3>
+          <p>From sensor to insight in real time. Built for scale, engineered for reliability.</p>
+        </div>
+        <div class="nexio-bar-group">
+          <div class="nexio-bar-row">
+            <div class="nexio-bar-label"><span>Device Uptime</span><span>99.9%</span></div>
+            <div class="nexio-bar-track"><div class="nexio-bar-fill" data-width="99"></div></div>
+          </div>
+          <div class="nexio-bar-row">
+            <div class="nexio-bar-label"><span>Deployment Speed</span><span>3× Faster</span></div>
+            <div class="nexio-bar-track"><div class="nexio-bar-fill" data-width="82"></div></div>
+          </div>
+          <div class="nexio-bar-row">
+            <div class="nexio-bar-label"><span>Cost Reduction</span><span>40%</span></div>
+            <div class="nexio-bar-track"><div class="nexio-bar-fill" data-width="40"></div></div>
+          </div>
+          <div class="nexio-bar-row">
+            <div class="nexio-bar-label"><span>Downtime Prevented</span><span>60%</span></div>
+            <div class="nexio-bar-track"><div class="nexio-bar-fill" data-width="60"></div></div>
+          </div>
+        </div>
+      </div>
 
-        <div class="hww-step">
-          <div class="hww-circle">
-            <div>
-              <div class="hww-num">02</div>
-              <div class="hww-icon"><i class="fas fa-drafting-compass"></i></div>
-            </div>
+      <!-- ROI -->
+      <div class="nexio-roi-card reveal delay-3">
+        <p class="nexio-card-title">Return on Investment</p>
+        <div class="nexio-roi-list">
+          <div class="nexio-roi-item">
+            <div class="nexio-roi-num" data-count="40" data-suffix="%">0%</div>
+            <div class="nexio-roi-text"><strong>Lower OpEx</strong><span>Cut operational costs through automated monitoring and remote diagnostics.</span></div>
           </div>
-          <h3>Design &amp; Architect</h3>
-          <p>Our architects craft scalable, future-proof solution blueprints aligned to your budget and growth trajectory.</p>
+          <div class="nexio-roi-item">
+            <div class="nexio-roi-num" data-count="60" data-suffix="%">0%</div>
+            <div class="nexio-roi-text"><strong>Less Downtime</strong><span>Predictive alerts stop failures before they cost you revenue.</span></div>
+          </div>
+          <div class="nexio-roi-item">
+            <div class="nexio-roi-num" data-count="3" data-suffix="×">0×</div>
+            <div class="nexio-roi-text"><strong>Faster to Market</strong><span>Plug-and-play onboarding vs months of custom integration work.</span></div>
+          </div>
+          <div class="nexio-roi-item">
+            <div class="nexio-roi-num" data-count="12" data-suffix="mo">0mo</div>
+            <div class="nexio-roi-text"><strong>Payback Period</strong><span>Most deployments achieve full ROI within the first year.</span></div>
+          </div>
         </div>
+      </div>
 
-        <div class="hww-step">
-          <div class="hww-circle">
-            <div>
-              <div class="hww-num">03</div>
-              <div class="hww-icon"><i class="fas fa-code"></i></div>
-            </div>
-          </div>
-          <h3>Build &amp; Iterate</h3>
-          <p>Agile sprints with continuous delivery, testing, and stakeholder feedback loops for rapid and reliable execution.</p>
-        </div>
+    </div><!-- /nexio-grid -->
 
-        <div class="hww-step">
-          <div class="hww-circle">
-            <div>
-              <div class="hww-num">04</div>
-              <div class="hww-icon"><i class="fas fa-rocket"></i></div>
-            </div>
-          </div>
-          <h3>Deploy &amp; Optimise</h3>
-          <p>Production deployment with ongoing monitoring, support, and continuous optimisation to maximise ROI.</p>
-        </div>
+    <!-- Protocol strip -->
+    <div class="nexio-bottom-strip reveal">
+      <div class="nexio-strip-text">
+        <h4>Works with every protocol, every device, every cloud.</h4>
+        <p>Nexio is hardware-agnostic — if it speaks data, Nexio listens.</p>
+      </div>
+      <div class="nexio-strip-chips">
+        <span class="nexio-chip">MQTT</span>
+        <span class="nexio-chip">CoAP</span>
+        <span class="nexio-chip">Modbus</span>
+        <span class="nexio-chip">OPC-UA</span>
+        <span class="nexio-chip">HTTP/S</span>
+        <span class="nexio-chip">Azure IoT</span>
+        <span class="nexio-chip">AWS IoT Core</span>
       </div>
     </div>
 
-    <script>
-      // Animate the steps + connector line when section scrolls into view
-      (function() {
-        var stepsEl = document.getElementById('hwwSteps');
-        if (!stepsEl) return;
-        var steps = stepsEl.querySelectorAll('.hww-step');
-        var triggered = false;
-        var obs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting && !triggered) {
-              triggered = true;
-              stepsEl.classList.add('line-visible');
-              steps.forEach(function(s) { s.classList.add('step-visible'); });
-            }
-          });
-        }, { threshold: 0.25 });
-        obs.observe(stepsEl);
-      })();
-    </script>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== INDUSTRIES ===== -->
-  <section id="industries">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">Industries</div>
-        <h2 class="section-title">Sectors We <span class="gradient-text">Transform</span></h2>
-        <p class="section-desc">Our solutions span diverse verticals, adapting our technology DNA to each industry's unique challenges.</p>
+<!-- WHY AXOPIAN -->
+<section id="why" class="section-pad">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge-label light">Why Choose Us</span>
+      <h2 class="section-title light">The <span class="hl">Axopian</span> Advantage</h2>
+      <p class="section-desc light">We don't just deliver technology — we deliver outcomes. Here's why leading enterprises trust Axopian.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal delay-1">
+        <span class="why-num">01</span>
+        <div class="why-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+        <h3 class="why-title">Full-Stack Ownership</h3>
+        <p class="why-desc">From hardware design to cloud deployment, we manage the entire technology stack — eliminating integration risk and vendor complexity.</p>
       </div>
-      <div class="industries-grid">
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-industry"></i></div>
-          <h4>Manufacturing</h4>
+      <div class="why-card reveal delay-2">
+        <span class="why-num">02</span>
+        <div class="why-icon"><i class="fa-solid fa-certificate"></i></div>
+        <h3 class="why-title">Certified Cloud Expertise</h3>
+        <p class="why-desc">Our architects hold certifications across Azure, GCP, and AWS — ensuring best-practice implementations on every cloud platform.</p>
+      </div>
+      <div class="why-card reveal delay-3">
+        <span class="why-num">03</span>
+        <div class="why-icon"><i class="fa-solid fa-lock"></i></div>
+        <h3 class="why-title">Security by Design</h3>
+        <p class="why-desc">DevSecOps is woven into every project lifecycle — automated security scanning, compliance validation, and zero-trust architecture.</p>
+      </div>
+      <div class="why-card reveal delay-4">
+        <span class="why-num">04</span>
+        <div class="why-icon"><i class="fa-solid fa-headset"></i></div>
+        <h3 class="why-title">Agile & Outcome-Focused</h3>
+        <p class="why-desc">Dedicated teams, sprint-based delivery, and transparent project tracking — so you always know what's built, what's next, and what it costs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries" class="section-pad">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge-label">Industries</span>
+      <h2 class="section-title">Sectors We <span class="hl">Serve</span></h2>
+      <p class="section-desc">Our solutions are deployed across a wide range of industries where connected intelligence drives competitive advantage.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card reveal delay-1">
+        <div class="ind-icon-wrap"><i class="fa-solid fa-industry"></i></div>
+        <p class="ind-name">Manufacturing</p>
+      </div>
+      <div class="ind-card reveal delay-2">
+        <div class="ind-icon-wrap"><i class="fa-solid fa-heart-pulse"></i></div>
+        <p class="ind-name">Healthcare</p>
+      </div>
+      <div class="ind-card reveal delay-3">
+        <div class="ind-icon-wrap"><i class="fa-solid fa-building"></i></div>
+        <p class="ind-name">Smart Buildings</p>
+      </div>
+      <div class="ind-card reveal delay-4">
+        <div class="ind-icon-wrap"><i class="fa-solid fa-bolt"></i></div>
+        <p class="ind-name">Energy & Utilities</p>
+      </div>
+      <div class="ind-card reveal delay-5">
+        <div class="ind-icon-wrap"><i class="fa-solid fa-truck"></i></div>
+        <p class="ind-name">Logistics & Retail</p>
+      </div>
+      <div class="ind-card reveal delay-6">
+        <div class="ind-icon-wrap"><i class="fa-solid fa-landmark"></i></div>
+        <p class="ind-name">Financial Services</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section id="offices" class="section-pad" style="background:var(--off-white)">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge-label">Our Presence</span>
+      <h2 class="section-title">Global <span class="hl">Offices</span></h2>
+      <p class="section-desc">Two strategic locations connecting the technology ecosystems of South Asia and Southeast Asia.</p>
+    </div>
+    <div class="offices-grid">
+      <div class="office-card reveal delay-1">
+        <div class="office-header">
+          <div class="office-flag">🇮🇳</div>
+          <h3 class="office-city">Kochi</h3>
+          <p class="office-country">Kerala, India — Headquarters</p>
         </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-heartbeat"></i></div>
-          <h4>Healthcare</h4>
+        <div class="office-body">
+          <div class="office-info"><i class="fa-solid fa-location-dot"></i><span>Inforpark, Kochi, Kerala, India 682 042</span></div>
+          <div class="office-info"><i class="fa-solid fa-phone"></i><span><a href="tel:+919447124697">+91 944 712 4697</a></span></div>
+          <div class="office-info"><i class="fa-solid fa-envelope"></i><span><a href="mailto:india@axopian.com">india@axopian.com</a></span></div>
+          <div class="office-info"><i class="fa-solid fa-clock"></i><span>Mon – Fri: 9:00 AM – 6:00 PM IST</span></div>
         </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-bolt"></i></div>
-          <h4>Energy & Utilities</h4>
+      </div>
+      <div class="office-card reveal delay-2">
+        <div class="office-header">
+          <div class="office-flag">🇸🇬</div>
+          <h3 class="office-city">Singapore</h3>
+          <p class="office-country">Republic of Singapore</p>
         </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-truck"></i></div>
-          <h4>Logistics</h4>
-        </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-building"></i></div>
-          <h4>Smart Buildings</h4>
-        </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-seedling"></i></div>
-          <h4>Agriculture</h4>
-        </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-ship"></i></div>
-          <h4>Maritime</h4>
-        </div>
-        <div class="industry-card reveal">
-          <div class="industry-icon"><i class="fas fa-university"></i></div>
-          <h4>BFSI</h4>
+        <div class="office-body">
+          <div class="office-info"><i class="fa-solid fa-location-dot"></i><span>#09-24 Ark@ Gambas, Singapore 757 087</span></div>
+          <div class="office-info"><i class="fa-solid fa-phone"></i><span><a href="tel:+6598003890">+65 9800 3890</a></span></div>
+          <div class="office-info"><i class="fa-solid fa-envelope"></i><span><a href="mailto:singapore@axopian.com">singapore@axopian.com</a></span></div>
+          <div class="office-info"><i class="fa-solid fa-clock"></i><span>Mon – Fri: 9:00 AM – 6:00 PM SGT</span></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== STATS ===== -->
-  <section id="stats">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item reveal">
-          <div class="stat-num" data-target="50">0</div>
-          <div class="stat-label">Happy Clients</div>
-        </div>
-        <div class="stat-item reveal">
-          <div class="stat-num" data-target="100">0</div>
-          <div class="stat-label">Projects Delivered</div>
-        </div>
-        <div class="stat-item reveal">
-          <div class="stat-num" data-target="3">0</div>
-          <div class="stat-label">Cloud Platforms</div>
-        </div>
-        <div class="stat-item reveal">
-          <div class="stat-num" data-target="2">0</div>
-          <div class="stat-label">Global Offices</div>
-        </div>
+<!-- STATS -->
+<section id="stats">
+  <div class="section-inner" style="max-width:1280px;margin:0 auto;padding:0 6%">
+    <div class="stats-grid">
+      <div class="stat-block reveal delay-1">
+        <div class="stat-block-icon"><i class="fa-solid fa-rocket"></i></div>
+        <div class="stat-block-num" data-target="50">0</div>
+        <div class="stat-block-label">Projects Delivered</div>
+      </div>
+      <div class="stat-block reveal delay-2">
+        <div class="stat-block-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-block-num" data-target="30">0</div>
+        <div class="stat-block-label">Clients Served</div>
+      </div>
+      <div class="stat-block reveal delay-3">
+        <div class="stat-block-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="stat-block-num" data-target="5">0</div>
+        <div class="stat-block-label">Years of Expertise</div>
+      </div>
+      <div class="stat-block reveal delay-4">
+        <div class="stat-block-icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="stat-block-num" data-target="2">0</div>
+        <div class="stat-block-label">Global Offices</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== OFFICES ===== -->
-  <section id="offices" class="section-pad">
-    <div class="container">
-      <div class="section-header reveal">
-        <div class="section-badge">Our Offices</div>
-        <h2 class="section-title">Globally Connected, <span class="gradient-text">Locally Present</span></h2>
-        <p class="section-desc">With strategic offices across Asia, we deliver world-class service with regional understanding.</p>
-      </div>
-      <div class="offices-grid">
-        <div class="office-card reveal-left">
-          <!-- Kochi Marine Drive / backwaters image -->
-          <img class="office-img" src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=700&q=80" alt="Kochi, Kerala" />
-          <div class="office-info">
-            <div class="office-flag">🇮🇳</div>
-            <h3>Kochi, Kerala</h3>
-            <p>India Headquarters</p>
-            <div class="office-detail"><i class="fas fa-map-marker-alt"></i> <span id="addr-india">Infopark, Kochi, Kerala, India 682 042</span></div>
-            <div class="office-detail"><i class="fas fa-envelope"></i> <span id="email-india">india@axopian.com</span></div>
-            <div class="office-detail"><i class="fas fa-phone"></i> <span id="phone-india">+91 944 712 4697</span></div>
-          </div>
-        </div>
-        <div class="office-card reveal-right">
-          <img class="office-img" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=700&q=80" alt="Singapore" />
-          <div class="office-info">
-            <div class="office-flag">🇸🇬</div>
-            <h3>Singapore</h3>
-            <p>APAC Regional Office</p>
-            <div class="office-detail"><i class="fas fa-map-marker-alt"></i> <span id="addr-sg">#09-24 Ark@ Gambas, Singapore 757 087</span></div>
-            <div class="office-detail"><i class="fas fa-envelope"></i> <span id="email-sg">singapore@axopian.com</span></div>
-            <div class="office-detail"><i class="fas fa-phone"></i> <span id="phone-sg">+65 9800 3890</span></div>
-          </div>
-        </div>
-      </div>
+<!-- CONTACT -->
+<section id="contact" class="section-pad">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge-label">Contact Us</span>
+      <h2 class="section-title">Let's Build <span class="hl">Together</span></h2>
+      <p class="section-desc">Have a project in mind? We'd love to hear from you. Reach out and let's start the conversation.</p>
     </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="section-pad">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-info reveal-left">
-          <div class="section-badge">Contact Us</div>
-          <h2 class="section-title">Let's Build Something <span class="gradient-text">Remarkable</span></h2>
-          <p>Ready to transform your business with smart IoT and cloud solutions? Our experts are here to help you design the right strategy and deliver real results.</p>
+    <div class="contact-grid">
+      <div class="contact-info-wrap reveal-left">
+        <h3 class="contact-title">Get in Touch</h3>
+        <p class="contact-desc">Whether you're exploring IoT transformation, cloud migration, or AI integration — our team of specialists is ready to help you navigate the journey.</p>
+        <div class="contact-details">
           <div class="contact-item">
-            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
-            <div>
-              <h4>Email Us</h4>
-              <p id="ct-email-general">hello@axopian.com</p>
+            <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">General Enquiries</span>
+              <span class="contact-item-value"><a href="mailto:hello@axopian.com">hello@axopian.com</a></span>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
-            <div>
-              <h4>Call Us</h4>
-              <p><span id="ct-phone-india">+91 628 205 0091</span> (India) · <span id="ct-phone-sg">+65 9800 3890</span> (Singapore)</p>
+            <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">India Office</span>
+              <span class="contact-item-value"><a href="tel:+919447124697">+91 944 712 4697</a></span>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div>
-              <h4>Visit Us</h4>
-              <p><span id="ct-addr-india">Infopark, Kochi, Kerala, India</span> · <span id="ct-addr-sg">#09-24 Ark@ Gambas, Singapore 757 087</span></p>
+            <div class="contact-item-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Singapore Office</span>
+              <span class="contact-item-value"><a href="tel:+6598003890">+65 9800 3890</a></span>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
-            <div>
-              <h4>Business Hours</h4>
-              <p id="ct-hours">Mon – Fri: 9:00 AM – 6:00 PM (IST / SGT)</p>
+            <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Headquarters</span>
+              <span class="contact-item-value">Inforpark, Kochi, Kerala 682 042</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="contact-item-text">
+              <span class="contact-item-label">Business Hours</span>
+              <span class="contact-item-value">Mon – Fri: 9:00 AM – 6:00 PM (IST / SGT)</span>
             </div>
           </div>
         </div>
-        <div class="contact-form reveal-right">
-          <h3 style="color:var(--navy);margin-bottom:1.5rem;font-size:1.2rem;">Send Us a Message</h3>
-          <form id="contactForm" onsubmit="handleFormSubmit(event)">
-            <div class="form-row">
-              <div class="form-group">
-                <label>First Name</label>
-                <input type="text" placeholder="John" required />
-              </div>
-              <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" placeholder="Doe" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Email Address</label>
-              <input type="email" placeholder="john@company.com" required />
-            </div>
-            <div class="form-group">
-              <label>Company</label>
-              <input type="text" placeholder="Your Company Name" />
-            </div>
-            <div class="form-group">
-              <label>Service Interest</label>
-              <select>
-                <option value="">Select a service...</option>
-                <option>IoT Software & Hardware</option>
-                <option>Cloud Solutions (Azure / AWS / GCP)</option>
-                <option>Data & AI</option>
-                <option>DevSecOps</option>
-                <option>Infra Automation</option>
-                <option>Digital Transformation</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Message</label>
-              <textarea placeholder="Tell us about your project or requirements..."></textarea>
-            </div>
-            <button type="submit" class="form-submit">
-              <i class="fas fa-paper-plane"></i> Send Message
-            </button>
-          </form>
+      </div>
+      <div class="contact-form-wrap reveal-right">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Doe" />
+          </div>
         </div>
+        <div class="form-group">
+          <label>Business Email</label>
+          <input type="email" placeholder="john@company.com" />
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <input type="text" placeholder="Your Company Name" />
+        </div>
+        <div class="form-group">
+          <label>Service of Interest</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>IoT Hardware Solutions</option>
+            <option>IoT Software & Platform</option>
+            <option>Cloud Infrastructure (Azure / GCP / AWS)</option>
+            <option>Data & Analytics</option>
+            <option>AI & Machine Learning</option>
+            <option>DevSecOps & Automation</option>
+            <option>Other / General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your project or requirements..."></textarea>
+        </div>
+        <button class="form-submit" type="button">
+          <i class="fa-solid fa-paper-plane"></i> Send Message
+        </button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;">
-            <!-- Real icon + text stacked -->
-            <img src="Axopian Icon.png" alt="Axopian"
-                 style="height:72px;width:auto;display:block;" />
-            <div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1.25rem;color:#fff;letter-spacing:2px;line-height:1;">AXOPIAN</div>
-              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.6rem;color:rgba(255,255,255,0.75);letter-spacing:2px;margin-top:3px;">CONSULTING PRIVATE LIMITED</div>
-              <div style="width:100%;height:1px;background:rgba(255,255,255,0.2);margin:5px 0;"></div>
-              <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:0.6rem;color:#4dbde8;letter-spacing:0.5px;">EMPOWERING INSIGHT. DRIVING INNOVATION.</div>
-            </div>
-          </div>
-          <p>Empowering Insight. Driving Innovation.<br/>Next-generation IoT & cloud solutions for the intelligent enterprise.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="#services">IoT Solutions</a></li>
-            <li><a href="#cloud">Cloud Services</a></li>
-            <li><a href="#services">Data & AI</a></li>
-            <li><a href="#services">DevSecOps</a></li>
-            <li><a href="#services">Infra Automation</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#why">Why Axopian</a></li>
-            <li><a href="#industries">Industries</a></li>
-            <li><a href="#offices">Our Offices</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Locations</h4>
-          <ul>
-            <li><a href="#">🇮🇳 Kochi, Kerala</a></li>
-            <li><a href="#">🇸🇬 Singapore</a></li>
-            <li><a href="#">hello@axopian.com</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2024 Axopian Consulting Private Limited. All rights reserved.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Cookie Policy</a>
-        </div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid" style="max-width:1280px;margin:0 auto;">
+    <div class="footer-brand">
+      <div class="footer-logo"><img src="Axopian Logo Dark.png" alt="Axopian" /></div>
+      <p class="footer-tagline">Empowering Insight. Driving Innovation.<br/>IoT &amp; Cloud solutions that connect your world.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-github"></i></a>
       </div>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul class="footer-links">
+        <li><a href="#iot">IoT Hardware</a></li>
+        <li><a href="#iot">IoT Software</a></li>
+        <li><a href="#cloud">Cloud (Azure)</a></li>
+        <li><a href="#cloud">Cloud (GCP)</a></li>
+        <li><a href="#cloud">Cloud (AWS)</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Expertise</h5>
+      <ul class="footer-links">
+        <li><a href="#services">Data & Analytics</a></li>
+        <li><a href="#services">AI / ML</a></li>
+        <li><a href="#services">DevSecOps</a></li>
+        <li><a href="#services">Infra Automation</a></li>
+        <li><a href="#why">Why Axopian</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#offices">Kochi Office</a></li>
+        <li><a href="#offices">Singapore Office</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width:1280px;margin:0 auto;">
+    <p class="footer-copy">&copy; 2025 <span>Axopian Consulting Private Limited</span>. All rights reserved.</p>
+    <div class="footer-policies">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+</footer>
 
-  <!-- Scroll to Top -->
-  <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
-    <i class="fas fa-arrow-up"></i>
-  </button>
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <script>
-    // ===== NAV SCROLL =====
-    const navbar = document.getElementById('navbar');
-    const scrollTopBtn = document.getElementById('scrollTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-        scrollTopBtn.classList.add('visible');
-      } else {
-        navbar.classList.remove('scrolled');
-        scrollTopBtn.classList.remove('visible');
-      }
-    });
+<script>
+/* ===== PRELOADER ===== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 1600);
+});
 
-    // ===== MOBILE NAV =====
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('open');
-      navLinks.classList.toggle('open');
-    });
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navToggle.classList.remove('open');
-        navLinks.classList.remove('open');
-      });
-    });
+/* ===== NAV SCROLL ===== */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
 
-    // ===== SCROLL REVEAL =====
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+/* ===== MOBILE MENU ===== */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
 
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-      revealObserver.observe(el);
-    });
+/* ===== SCROLL TO TOP ===== */
+document.getElementById('scrollTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
-    // ===== COUNTER ANIMATION =====
-    const counters = document.querySelectorAll('[data-target]');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = +el.getAttribute('data-target');
-          const suffix = target > 10 ? '+' : '';
-          let start = 0;
-          const duration = 1800;
-          const step = target / (duration / 16);
-          const timer = setInterval(() => {
-            start += step;
-            if (start >= target) {
-              el.textContent = target + suffix;
-              clearInterval(timer);
-            } else {
-              el.textContent = Math.floor(start) + suffix;
-            }
-          }, 16);
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(c => counterObserver.observe(c));
-
-    // ===== STAGGERED REVEAL DELAYS =====
-    document.querySelectorAll('.services-grid .service-card').forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.08}s`;
-    });
-    document.querySelectorAll('.why-grid .why-card').forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.1}s`;
-    });
-    document.querySelectorAll('.industries-grid .industry-card').forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.06}s`;
-    });
-
-    // ===== FORM SUBMIT =====
-    function handleFormSubmit(e) {
+/* ===== SMOOTH SCROLL FOR NAV LINKS ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
       e.preventDefault();
-      const btn = e.target.querySelector('.form-submit');
-      btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-      btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-        btn.style.background = '';
-        e.target.reset();
-      }, 3000);
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ===== NEXIO — Counter & Bar animations ===== */
+(function(){
+  function animateCount(el){
+    const target = +el.dataset.count;
+    const suffix = el.dataset.suffix || '';
+    const dur = 1600;
+    const start = performance.now();
+    function step(now){
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * ease) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function animateBars(section){
+    section.querySelectorAll('.nexio-bar-fill').forEach(bar => {
+      bar.style.width = (bar.dataset.width || 0) + '%';
+    });
+  }
+
+  const nexioSection = document.getElementById('nexio');
+  if(!nexioSection) return;
+  let fired = false;
+  const obs = new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting && !fired){
+      fired = true;
+      nexioSection.querySelectorAll('.nexio-roi-num[data-count]').forEach(animateCount);
+      animateBars(nexioSection);
+      obs.disconnect();
+    }
+  }, { threshold: 0.2 });
+  obs.observe(nexioSection);
+})();
+
+/* ===== HERO CANVAS — IoT NETWORK ===== */
+(function() {
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, packets = [], bgDots = [], devices = [];
+
+  /* IoT device definitions — no hub, positioned around edges */
+  const DEFS = [
+    { rx:0.04, ry:0.14, label:'TEMP SENSOR',   color:'#1565C0' },
+    { rx:0.93, ry:0.10, label:'GPS TRACKER',    color:'#0891b2' },
+    { rx:0.02, ry:0.50, label:'SMART METER',    color:'#1565C0' },
+    { rx:0.96, ry:0.50, label:'CCTV CAMERA',    color:'#0891b2' },
+    { rx:0.06, ry:0.86, label:'EDGE GATEWAY',   color:'#1565C0' },
+    { rx:0.94, ry:0.86, label:'ENERGY MONITOR', color:'#0891b2' },
+    { rx:0.47, ry:0.04, label:'WEATHER STN',    color:'#1565C0' },
+    { rx:0.53, ry:0.96, label:'SMART LOCK',     color:'#0891b2' },
+  ];
+
+  /* Get globe canvas center relative to hero canvas */
+  function getGlobeCenter() {
+    const gc = document.getElementById('globeCanvas');
+    const gcRect = gc.getBoundingClientRect();
+    const hcRect = canvas.getBoundingClientRect();
+    return {
+      x: gcRect.left - hcRect.left + gcRect.width  / 2,
+      y: gcRect.top  - hcRect.top  + gcRect.height / 2,
+    };
+  }
+
+  function buildDevices() {
+    devices = DEFS.map(d => ({
+      ...d, x: d.rx * W, y: d.ry * H,
+      floatPh: Math.random() * Math.PI * 2,
+      pulsePh: Math.random() * Math.PI * 2,
+      radius: 13,
+      lastSent: performance.now() - Math.random() * 3000,
+      interval: 2200 + Math.random() * 2800,
+    }));
+  }
+
+  function buildBgDots() {
+    bgDots = Array.from({length:55}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      r: Math.random()*1.4+0.4,
+      o: Math.random()*0.1+0.03,
+      vx:(Math.random()-0.5)*0.18, vy:(Math.random()-0.5)*0.18,
+    }));
+  }
+
+  /* Data packet travelling toward globe center */
+  class Packet {
+    constructor(src, dst) {
+      this.sx=src.x; this.sy=src.y;
+      this.dx=dst.x; this.dy=dst.y;
+      this.t=0; this.speed=0.007+Math.random()*0.004;
+      this.col=src.color;
+    }
+    update(){ this.t+=this.speed; return this.t<1; }
+    draw(){
+      const TRAIL=6;
+      for(let i=0;i<TRAIL;i++){
+        const tp=Math.max(0,this.t-i*0.018);
+        const x=this.sx+(this.dx-this.sx)*tp;
+        const y=this.sy+(this.dy-this.sy)*tp;
+        const a=(0.75-i*0.12)*(1-i/TRAIL);
+        const r=4.5-i*0.6;
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(24,119,242,${a})`; ctx.fill();
+      }
+      const x=this.sx+(this.dx-this.sx)*this.t;
+      const y=this.sy+(this.dy-this.sy)*this.t;
+      const grd=ctx.createRadialGradient(x,y,0,x,y,10);
+      grd.addColorStop(0,'rgba(24,119,242,0.45)');
+      grd.addColorStop(1,'rgba(24,119,242,0)');
+      ctx.beginPath(); ctx.arc(x,y,10,0,Math.PI*2);
+      ctx.fillStyle=grd; ctx.fill();
+    }
+  }
+
+  function drawLines(){
+    const gc = getGlobeCenter();
+    devices.forEach(d=>{
+      ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(gc.x, gc.y);
+      ctx.strokeStyle='rgba(11,36,71,0.07)';
+      ctx.lineWidth=0.9; ctx.setLineDash([5,9]); ctx.stroke();
+      ctx.setLineDash([]);
+    });
+  }
+
+  function drawDevice(d){
+    const fy = Math.sin(d.floatPh)*5;
+    const pulse = Math.sin(d.pulsePh);
+    const x = d.x, y = d.y + fy;
+    /* Outer glow ring */
+    ctx.beginPath(); ctx.arc(x,y,d.radius+5,0,Math.PI*2);
+    ctx.fillStyle=`rgba(21,101,192,${0.06+pulse*0.04})`; ctx.fill();
+    /* White disc */
+    ctx.beginPath(); ctx.arc(x,y,d.radius,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.fill();
+    ctx.strokeStyle='rgba(11,36,71,0.14)'; ctx.lineWidth=1; ctx.stroke();
+    /* Inner dot */
+    ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle=d.color; ctx.fill();
+    /* Label */
+    ctx.font='600 8px Inter,sans-serif';
+    ctx.fillStyle='rgba(11,36,71,0.55)';
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText(d.label, x, y+d.radius+5);
+  }
+
+  function spawnPackets(now){
+    const gc = getGlobeCenter();
+    devices.forEach(d=>{
+      if(now-d.lastSent>d.interval){
+        packets.push(new Packet(d, gc));
+        d.lastSent=now;
+        d.interval=2200+Math.random()*2800;
+      }
+    });
+  }
+
+  function resize(){
+    W=canvas.width=canvas.offsetWidth;
+    H=canvas.height=canvas.offsetHeight;
+  }
+
+  function init(){
+    resize(); buildDevices(); buildBgDots(); packets=[];
+  }
+  window.addEventListener('resize', init);
+  init();
+
+  function animate(now){
+    ctx.clearRect(0,0,W,H);
+
+    bgDots.forEach(d=>{
+      d.x+=d.vx; d.y+=d.vy;
+      if(d.x<0||d.x>W) d.vx*=-1;
+      if(d.y<0||d.y>H) d.vy*=-1;
+      ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(11,36,71,${d.o})`; ctx.fill();
+    });
+
+    drawLines();
+
+    devices.forEach(d=>{ d.floatPh+=0.009; d.pulsePh+=0.022; });
+
+    spawnPackets(now);
+    packets = packets.filter(p=>{ const alive=p.update(); if(alive) p.draw(); return alive; });
+
+    devices.forEach(d=>drawDevice(d));
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+})();
+
+/* ===== GLOBE ANIMATION ===== */
+(function() {
+  const canvas = document.getElementById('globeCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 440, H = 440, cx = W/2, cy = H/2, R = 168;
+  canvas.width = W; canvas.height = H;
+  let rot = 0, packets = [], lastSpawn = 0;
+
+  /* Click / hover on Nexio disc → navigate to #nexio */
+  const discR = 68;
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width, scaleY = H / rect.height;
+    const dx = (e.clientX - rect.left) * scaleX - cx;
+    const dy = (e.clientY - rect.top)  * scaleY - cy;
+    canvas.style.cursor = (dx*dx + dy*dy <= discR*discR) ? 'pointer' : 'default';
+  });
+  canvas.addEventListener('click', e => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width, scaleY = H / rect.height;
+    const dx = (e.clientX - rect.left) * scaleX - cx;
+    const dy = (e.clientY - rect.top)  * scaleY - cy;
+    if (dx*dx + dy*dy <= discR*discR) {
+      document.getElementById('nexio').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  /* Nodes: [lat, lon, label, isHighlighted] */
+  const NODES = [
+    [ 10.0,  76.3, 'Kochi',         true ],   // 0  HQ India
+    [  1.3, 103.8, 'Singapore',     true ],   // 1  Office
+    [ 51.5,  -0.1, 'London',        true ],   // 2  UK
+    [ 40.7, -74.0, 'New York',      true ],   // 3  USA
+    [ 43.7, -79.4, 'Canada',        true ],   // 4  Canada
+    [-33.9, 151.2, 'Sydney',        true ],   // 5  Australia
+    [ 35.7, 139.7, 'Tokyo',         false],   // 6
+    [ 25.2,  55.3, 'Dubai',         false],   // 7
+    [ 50.1,   8.7, 'Frankfurt',     false],   // 8
+    [ 37.8,-122.4, 'San Francisco', false],   // 9
+    [ 19.1,  72.9, 'Mumbai',        false],   // 10
+    [ 31.2, 121.5, 'Shanghai',      false],   // 11
+    [-33.9,  18.4, 'Cape Town',     false],   // 12
+  ];
+
+  const CONNS = [
+    [0,1],[0,7],[0,10],[0,2],   // Kochi outbound
+    [1,6],[1,5],[1,11],[1,3],   // Singapore outbound
+    [2,3],[2,8],[2,4],           // London — NY, Frankfurt, Canada
+    [3,4],[3,9],                 // NY — Canada, SF
+    [4,2],[4,3],                 // Canada — London, NY
+    [5,1],[5,12],                // Sydney — Singapore, Cape Town
+    [7,10],[6,11],               // Dubai-Mumbai, Tokyo-Shanghai
+  ];
+
+  function toXYZ(lat, lon) {
+    const phi = (90-lat)*Math.PI/180;
+    const th  = lon*Math.PI/180 + rot;
+    return { x: R*Math.sin(phi)*Math.cos(th), y: -R*Math.cos(phi), z: R*Math.sin(phi)*Math.sin(th) };
+  }
+  function proj(p)  { return { x: cx+p.x, y: cy+p.y, vis: p.z > -20 }; }
+  function nPos(i)  { return proj(toXYZ(NODES[i][0], NODES[i][1])); }
+  function bezCP(a,b) {
+    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2, dx=mx-cx, dy=my-cy;
+    const d=Math.sqrt(dx*dx+dy*dy)||1;
+    return { x: mx+dx/d*R*0.42, y: my+dy/d*R*0.42 };
+  }
+  function bezAt(a,cp,b,t) {
+    return { x:(1-t)*(1-t)*a.x+2*(1-t)*t*cp.x+t*t*b.x, y:(1-t)*(1-t)*a.y+2*(1-t)*t*cp.y+t*t*b.y };
+  }
+
+  class Packet {
+    constructor(ci) {
+      const [a,b]=CONNS[ci]; this.a=a; this.b=b;
+      this.t=0; this.speed=0.007+Math.random()*0.004;
+      this.rev=Math.random()>0.5;
+      this.hl=NODES[a][3]||NODES[b][3];
+    }
+    update(){ this.t+=this.speed; return this.t<1; }
+    draw(){
+      const [a,b]=this.rev?[this.b,this.a]:[this.a,this.b];
+      const pa=nPos(a), pb=nPos(b);
+      if(!pa.vis||!pb.vis) return;
+      const cp=bezCP(pa,pb);
+      for(let i=5;i>=0;i--){
+        const tp=Math.max(0,this.t-i*0.022);
+        const pt=bezAt(pa,cp,pb,tp);
+        const a2=(0.72-i*0.11);
+        const r=Math.max(0.3, i===0?3.8:2.8-i*0.38);
+        ctx.beginPath(); ctx.arc(pt.x,pt.y,r,0,Math.PI*2);
+        ctx.fillStyle=this.hl?`rgba(24,119,242,${a2})`:`rgba(0,180,216,${a2*0.75})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawGlobe() {
+    /* Fill */
+    const grd=ctx.createRadialGradient(cx-40,cy-40,0,cx,cy,R);
+    grd.addColorStop(0,'rgba(235,245,255,0.55)');
+    grd.addColorStop(0.65,'rgba(220,235,255,0.18)');
+    grd.addColorStop(1,'rgba(200,225,255,0.03)');
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.fillStyle=grd; ctx.fill();
+    /* Outline */
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(11,36,71,0.2)'; ctx.lineWidth=1.4; ctx.stroke();
+    /* Latitude lines */
+    [-60,-30,0,30,60].forEach(lat=>{
+      const phi=(90-lat)*Math.PI/180;
+      const yr=-R*Math.cos(phi), xr=R*Math.sin(phi);
+      ctx.beginPath(); ctx.ellipse(cx,cy+yr,xr,xr*0.13,0,0,Math.PI*2);
+      ctx.strokeStyle='rgba(11,36,71,0.06)'; ctx.lineWidth=0.7; ctx.stroke();
+    });
+    /* Longitude lines */
+    for(let lon=0;lon<180;lon+=45){
+      const th=lon*Math.PI/180+rot;
+      ctx.beginPath(); ctx.ellipse(cx,cy,R*Math.abs(Math.cos(th)),R,0,0,Math.PI*2);
+      ctx.strokeStyle='rgba(11,36,71,0.05)'; ctx.lineWidth=0.7; ctx.stroke();
+    }
+  }
+
+  function drawConns(){
+    CONNS.forEach(([a,b])=>{
+      const pa=nPos(a),pb=nPos(b);
+      if(!pa.vis&&!pb.vis) return;
+      const cp=bezCP(pa,pb);
+      const hl=NODES[a][3]||NODES[b][3];
+      const al=(pa.vis&&pb.vis)?(hl?0.40:0.12):0.05;
+      ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.quadraticCurveTo(cp.x,cp.y,pb.x,pb.y);
+      ctx.strokeStyle=hl?`rgba(24,119,242,${al})`:`rgba(11,36,71,${al})`;
+      ctx.lineWidth=hl?1.3:0.8; ctx.stroke();
+    });
+  }
+
+  function drawNodes(){
+    NODES.forEach(([lat,lon,label,hl],i)=>{
+      const pos=nPos(i);
+      if(!pos.vis) return;
+      if(hl){
+        const g=ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,16);
+        g.addColorStop(0,'rgba(24,119,242,0.42)'); g.addColorStop(1,'rgba(24,119,242,0)');
+        ctx.beginPath(); ctx.arc(pos.x,pos.y,16,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+        ctx.beginPath(); ctx.arc(pos.x,pos.y,5.5,0,Math.PI*2);
+        ctx.fillStyle='#1877F2'; ctx.fill();
+        ctx.strokeStyle='rgba(255,255,255,0.75)'; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.font='700 9px Inter,sans-serif'; ctx.fillStyle='rgba(11,36,71,0.8)';
+        ctx.textAlign='center'; ctx.textBaseline='bottom'; ctx.fillText(label,pos.x,pos.y-9);
+      } else {
+        ctx.beginPath(); ctx.arc(pos.x,pos.y,3.2,0,Math.PI*2);
+        ctx.fillStyle='rgba(11,36,71,0.28)'; ctx.fill();
+      }
+    });
+  }
+
+  /* Load logo — use the transparent-background version so it renders cleanly */
+  const logo = new Image();
+  let logoLoaded = false;
+  logo.onload  = () => { logoLoaded = true; };
+  logo.onerror = () => { logoLoaded = false; };
+  logo.src = 'Axopian Logo.png';
+
+  function drawCenter() {
+    /* Soft outer glow */
+    const glow = ctx.createRadialGradient(cx, cy, 28, cx, cy, 82);
+    glow.addColorStop(0, 'rgba(24,119,242,0.12)');
+    glow.addColorStop(1, 'rgba(24,119,242,0)');
+    ctx.beginPath(); ctx.arc(cx, cy, 82, 0, Math.PI*2);
+    ctx.fillStyle = glow; ctx.fill();
+
+    /* White disc — slightly larger for logo with text */
+    ctx.beginPath(); ctx.arc(cx, cy, 68, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,1)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(24,119,242,0.18)'; ctx.lineWidth = 1.5; ctx.stroke();
+
+    /* "Nexio" wordmark at center */
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+
+    /* Axopian icon above the name */
+    if (logoLoaded) {
+      const s = 48;
+      const ratio = Math.min(s / logo.naturalWidth, s / logo.naturalHeight);
+      const dw = logo.naturalWidth  * ratio;
+      const dh = logo.naturalHeight * ratio;
+      ctx.drawImage(logo, cx - dw/2, cy - dh/2 - 18, dw, dh);
     }
 
-    // ===== SMOOTH ACTIVE NAV =====
-    const sections = document.querySelectorAll('section[id]');
-    const navItems = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
-      });
-      navItems.forEach(a => {
-        a.classList.remove('active');
-        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
-      });
+    /* "Nexio" text */
+    ctx.font = '800 22px Space Grotesk, sans-serif';
+    const grad = ctx.createLinearGradient(cx-34, 0, cx+34, 0);
+    grad.addColorStop(0, '#1877F2');
+    grad.addColorStop(1, '#00B4D8');
+    ctx.fillStyle = grad;
+    ctx.fillText('Nexio', cx, cy + 22);
+
+    /* Tagline */
+    ctx.font = '500 8.5px Inter, sans-serif';
+    ctx.fillStyle = 'rgba(11,36,71,0.50)';
+    ctx.fillText('IoT Platform', cx, cy + 37);
+
+    ctx.restore();
+  }
+
+  function animate(now){
+    ctx.clearRect(0,0,W,H);
+    rot += 0.0028;
+    drawGlobe(); drawConns(); drawNodes(); drawCenter();
+    if(now-lastSpawn>680){
+      packets.push(new Packet(Math.floor(Math.random()*CONNS.length)));
+      lastSpawn=now;
+    }
+    packets=packets.filter(p=>{ const ok=p.update(); if(ok) p.draw(); return ok; });
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+})();
+
+/* ===== TYPED EFFECT ===== */
+(function() {
+  const el = document.getElementById('heroTyped');
+  const words = ['IoT Solutions', 'Cloud Services', 'AI & Data', 'DevSecOps', 'Digital Transformation'];
+  let wi = 0, ci = 0, deleting = false;
+  function type() {
+    const word = words[wi];
+    if (!deleting) {
+      el.textContent = word.slice(0, ci + 1);
+      ci++;
+      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = word.slice(0, ci - 1);
+      ci--;
+      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; setTimeout(type, 300); return; }
+    }
+    setTimeout(type, deleting ? 60 : 100);
+  }
+  setTimeout(type, 1000);
+})();
+
+/* ===== SCROLL REVEAL ===== */
+(function() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+})();
+
+/* ===== COUNTER ANIMATION ===== */
+(function() {
+  function animateCounter(el, target, suffix) {
+    let start = 0;
+    const duration = 1800;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = Math.floor(start) + (suffix || '');
+    }, 16);
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = el.classList.contains('stat-block-num') ? '+' : '';
+        animateCounter(el, target, suffix);
+        obs.unobserve(el);
+      }
     });
+  }, { threshold: 0.5 });
 
-    // ===== LOAD CONTACT DETAILS FROM contact.txt =====
-    // Map: key in txt file → array of element IDs to update
-    const contactMap = {
-      'PHONE_INDIA':      ['phone-india', 'ct-phone-india'],
-      'PHONE_SINGAPORE':  ['phone-sg',    'ct-phone-sg'],
-      'EMAIL_GENERAL':    ['ct-email-general'],
-      'EMAIL_INDIA':      ['email-india'],
-      'EMAIL_SINGAPORE':  ['email-sg'],
-      'ADDRESS_INDIA':    ['addr-india',  'ct-addr-india'],
-      'ADDRESS_SINGAPORE':['addr-sg',     'ct-addr-sg'],
-      'HOURS':            ['ct-hours'],
-    };
+  document.querySelectorAll('[data-target]').forEach(el => obs.observe(el));
+})();
 
-    fetch('contact.txt')
-      .then(r => r.text())
-      .then(text => {
-        const lines = text.split('\n');
-        lines.forEach(line => {
-          line = line.trim();
-          if (!line || line.startsWith('#')) return; // skip comments & blanks
-          const colonIdx = line.indexOf(':');
-          if (colonIdx === -1) return;
-          const key   = line.slice(0, colonIdx).trim();
-          const value = line.slice(colonIdx + 1).trim();
-          if (!value) return;
-          const ids = contactMap[key];
-          if (ids) {
-            ids.forEach(id => {
-              const el = document.getElementById(id);
-              if (el) el.textContent = value;
-            });
-          }
-        });
-      })
-      .catch(() => {
-        // If fetch fails (e.g. opening HTML as a local file without a server),
-        // the hardcoded fallback values already in the HTML will show.
-        console.info('contact.txt not loaded — showing default contact details. Serve via a local web server to enable live loading.');
-      });
-  </script>
+/* ===== CONTACT FORM SUBMIT ===== */
+document.querySelector('.form-submit').addEventListener('click', function() {
+  const btn = this;
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> Message Sent!';
+  btn.style.background = '#16a34a';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+    btn.style.background = '';
+  }, 3000);
+});
+
+/* ===== ACTIVE NAV LINK ON SCROLL ===== */
+(function() {
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(l => {
+      l.style.color = l.getAttribute('href') === '#' + current ? 'var(--navy)' : '';
+    });
+  });
+})();
+</script>
 </body>
 </html>
